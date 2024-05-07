@@ -1,0 +1,281 @@
+$dark-grey: #313638;
+$light-grey: lightgray;
+$red: #f06543;
+$white: white;
+
+@mixin basic-sizing {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 3rem 0;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+@mixin heading2-font {
+  color: $red;
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 1rem;
+  text-align: center;
+}
+
+@mixin picture-bg {
+  background-size: 6rem auto;
+  background-position: center;
+}
+
+* {
+  font-family: Montserrat, sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: $light-grey;
+}
+
+nav {
+  background-color: $dark-grey;
+  color: $white;
+  position: fixed;
+  width: 100vw;
+
+  a {
+    padding: 1rem;
+    line-height: 3rem;
+    vertical-align: middle;
+  }
+}
+
+.section {
+  padding: 6rem 0;
+
+  &__intro {
+    background: url("../graphics/welcome.jpg");
+    color: $white;
+    text-align: center;
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 200;
+    }
+  }
+
+  &__plot {
+
+    .content {
+      @include basic-sizing;
+      display: flex;
+      gap: 2rem;
+
+      img {
+        height: 20rem;
+      }
+
+      & .text p {
+        color: $dark-grey;
+
+        &:nth-child(1) {
+          font-size: 1.3rem;
+          margin: 1.5rem 0;
+        }
+
+        &:nth-child(2) {
+          line-height: 1.7;
+        }
+      }
+    }
+
+  }
+
+  &__characters {
+    background-size: cover;
+    background: url("../graphics/rey-standing.jpg") no-repeat center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 60vh;
+    padding-bottom: 1rem;
+
+    & .photos {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 20vh;
+
+      & img {
+        border-radius: 50%;
+        height: 100%;
+
+
+        &:nth-child(4n + 2) {
+          height: 70%;
+        }
+
+        &:nth-child(2n + 3) {
+          height: 80%;
+        }
+
+        &:nth-child(6n + 1) {
+          height: 60%;
+        }
+      }
+    }
+  }
+
+  &__rating {
+    background-color: $light-grey;
+    height: 60vh;
+
+    .content {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+
+      & div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: flex-end;
+        align-items: center;
+
+        & .rating__bar {
+          width: 12rem;
+        }
+
+        &.rating__imbd .rating__bar {
+          height: 7.5rem;
+          background-color: $red;
+        }
+
+        &.rating__tomato .rating__bar {
+          height: 9rem;
+          background-color: $red;
+        }
+
+        &.rating__metacritic .rating__bar {
+          height: 8.5rem;
+          background-color: $red;
+        }
+
+        & .rating__points {
+          font-size: 1.5rem;
+          margin-bottom: 0.5rem;
+        }
+
+        & .rating__web {
+          font-size: 0.9rem;
+          margin-top: 0.5rem;
+        }
+      }
+    }
+
+  }
+
+  &__cast {
+    padding-top: 0;
+
+    .content {
+      & .cast__main {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 3rem;
+
+        & h4 {
+          font-size: 2rem;
+          margin: 1.5rem auto;
+
+        }
+
+      }
+
+      & .cast__other {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+
+        & .cast__persona {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+          align-items: center;
+          width: 7rem;
+          clip-path: border-box;
+
+          & img {
+            width: 7rem;
+          }
+
+          & p {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: $white;
+            font-size: 0.8rem;
+            line-height: 2;
+            padding: 0.7rem;
+            text-align: center;
+            position: absolute;
+            width: 10rem;
+          }
+
+        }
+
+      }
+    }
+  }
+
+  &__gallery {
+    height: 70vh;
+    @include flex-center;
+    flex-direction: column;
+    padding-bottom: 0;
+
+    & img {
+      width: 100vw;
+    }
+    & div {
+      @include flex-center;
+    }
+
+    .content {
+      @include flex-center;
+      align-self: center;
+      width: 800px;
+      position: absolute;
+      justify-content: space-between;
+
+      & .gallery__button {
+        @include flex-center;
+        height: 3rem;
+        width: 3rem;
+        border-radius: 50%;
+        line-height: 3;
+        vertical-align: center;
+        background-color: rgba(250, 250, 250, 0.2);
+        color: $white;
+      }
+
+    }
+  }
+}
+
+
+.content {
+  @include basic-sizing
+}
+
+h2 {
+  @include heading2-font;
+}
+
