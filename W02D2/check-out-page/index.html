@@ -1,15 +1,69 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8"/>
     <script type="module" src="/main.js"></script>
     <link rel="stylesheet" href="/css/style.scss">
     <link rel="stylesheet" href="/css/swatches.scss">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+          rel="stylesheet">
     <title>Checkout Page</title>
-  </head>
-  <body>
+</head>
+<body>
 
-  </body>
+<div class="content">
+    <div class="group">
+        <div class="bg__white"></div>
+        <div class="main">
+            <div class="summary">
+                <div>
+                    <h2>TOTAL</h2>
+                    <p class="summary__sum">698$</p></div>
+                <div>
+                    <h2>DETAIL</h2>
+                    <div class="summary__details">
+                        <div class="details__item">
+                            <p>Product one</p>
+                            <p>599$</p>
+                        </div>
+                        <div class="details__item">
+                            <p>Product Two</p>
+                            <p>99$</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button>PAY NOW</button>
+            </div>
+            <div class="card">
+                <form>
+                    <div class="card__name">
+                        <label for="name-and-surname">HOLDER NAME</label>
+                        <input type="text" name="name-and-surname" id="name-and-surname" placeholder="John Doe"
+                               autofocus></div>
+                    <div CLASS="card__number">
+                        <label for="card-number">CARD NUMBER</label>
+                        <input type="text" name="card-number" id="card-number" placeholder="1111 1111 1111 1111"></div>
+
+                    <div class="bottom">
+                        <div class="card__date">
+                            <label>EXPIRATION DATE</label>
+                            <label hidden="hidden" for="month"></label>
+                            <input type="number" name="month" id="month" max="2" placeholder="MM">
+                            <label hidden="hidden" for="year"></label>
+                            <input type="number" name="year" id="year" maxlength="4" placeholder="YYYY"></div>
+                        <div class="card__CVV">
+                            <label for="cvv">CVV</label>
+                            <input type="number" name="cvv" id="cvv" maxlength="3" placeholder="123"></div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
 </html>

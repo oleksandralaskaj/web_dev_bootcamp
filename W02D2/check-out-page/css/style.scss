@@ -1,10 +1,156 @@
 @import "swatches";
 
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
+  font-family: Lato, sans-serif;
 }
 
+
 body {
-    background-color: $gray;
+  height: 100vh;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+
+  .group {
+    width: 60%;
+    height: 70%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    //align-items: center;
+
+    & .bg__white {
+      border-radius: 2rem;
+      height: 100%;
+      width: 80%;
+      box-shadow: $shadow-light;
+    }
+
+    & .main {
+      position: absolute;
+      height: 70%;
+      width: 90%;
+      padding: 0 5%;
+      display: flex;
+
+      & .summary {
+        height: 100%;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding-left: 5%;
+
+        & h2 {
+          color: $gray;
+          font-size: 1.2rem;
+          font-weight: 400;
+          width: 100%;
+          text-align: center;
+          margin: 1rem 0;
+        }
+
+        & .summary__sum {
+          color: $blue;
+          font-weight: 600;
+          font-size: 4rem;
+          text-align: center;
+        }
+
+        & .summary__details {
+
+          & .details__item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+
+            & p:nth-child(2) {
+              color: $blue;
+              font-weight: 600;
+            }
+          }
+        }
+
+        & button {
+          background-color: $white;
+          border: $blue 2px solid;
+          border-radius: 3rem;
+          padding: 1rem 3rem;
+          color: $blue;
+          font-weight: 600;
+          align-self: center;
+        }
+      }
+
+      & .card {
+        flex: 2;
+        padding: 5% 5% 5% 10%;
+
+        & form {
+          background-color: $blue;
+          box-shadow: $shadow-dark;
+          border-radius: 2rem;
+          height: 80%;
+          padding: 10%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          & div {
+            display: flex;
+            flex-direction: column;
+          }
+
+          & div.bottom {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            & .card__date {
+              display: flex;
+              flex-direction: row;
+              flex-wrap: wrap;
+
+              & input[name="month"] {
+                width: 40%;
+                margin-right: 0.5rem;
+              }
+
+              & input[name="year"] {
+                width: 20%;
+              }
+            }
+          }
+
+
+          & label {
+            color: $white;
+            font-weight: 300;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+          }
+
+          & input {
+            color: red;
+            background-color: $transparent-white;
+            border: none;
+            border-radius: 4px;
+            padding: 0.7rem;
+
+            &::placeholder {
+              color: $white;
+              opacity: 0.5;
+            }
+          }
+        }
+      }
+    }
+  }
 }
