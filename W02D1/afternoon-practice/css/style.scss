@@ -137,7 +137,7 @@ nav {
 
   &__rating {
     background-color: $light-grey;
-    height: 60vh;
+    height: 50vh;
 
     .content {
       display: flex;
@@ -181,7 +181,6 @@ nav {
         }
       }
     }
-
   }
 
   &__cast {
@@ -196,9 +195,7 @@ nav {
         & h4 {
           font-size: 2rem;
           margin: 1.5rem auto;
-
         }
-
       }
 
       & .cast__other {
@@ -244,6 +241,7 @@ nav {
     & img {
       width: 100vw;
     }
+
     & div {
       @include flex-center;
     }
