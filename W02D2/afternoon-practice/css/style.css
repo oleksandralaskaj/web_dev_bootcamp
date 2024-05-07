@@ -1,4 +1,142 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+html {
+    font-family: 'Exo', sans-serif;
+    font-size: 18px;
+}
+
+body {
+    background-color: #F2F2F2;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 1rem auto;
+    padding: 7%;
+    @media  screen and (min-width: 768px) {
+        padding: 3% 10%;
+    }
+}
+
+header {
+    text-align: center;
+    @media  screen and (min-width: 768px) {
+        display: flex;
+        flex-direction: row-reverse;
+        padding: 0;
+        justify-content: space-between;
+        margin: 2rem 0;
+
+    }
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+}
+
+h1 {
+    color: #F4A423;
+    font-weight: 900;
+    font-size: 3rem;
+
+    @media  screen and (min-width: 500px) {
+
+    }
+}
+
+nav {
+    padding-left: 2rem;
+    background-color: #435058;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    @media  screen and (min-width: 768px) {
+        flex-direction: row;
+    }
+}
+
+nav a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: 3rem;
+    border-bottom: 2px solid transparent;
+
+    @media  screen and (min-width: 768px) {
+        margin-right: 2rem;
+    }
+}
+
+nav a:hover {
+    color: #F4A423;
+    border-color: #F4A423;
+}
+
+.plans {
+    margin-top: 2rem;
+
+    @media  screen and (min-width: 768px) {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    @media  screen and (min-width: 1200px) {
+        flex-wrap: nowrap;
+    }
+
+}
+
+.card {
+    padding: 1rem 1.5rem;
+    margin-bottom: 10px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 2px #aaa;
+
+    @media  screen and (min-width: 768px) {
+        min-width: 50%;
+    }
+    @media  screen and (min-width: 1200px) {
+       min-width: auto;
+    }
+}
+
+h2 {
+    margin: 0;
+
+    font-weight: normal;
+}
+
+p {
+    margin-bottom: 0;
+}
+
+.price {
+    margin-bottom: 1rem;
+
+    color: #F4A423;
+
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
+button {
+    display: block;
+
+    width: 100%;
+
+    background-color: #D33F49;
+    color: white;
+    border: none;
+    border-radius: 4px;
+
+    font-size: 1rem;
+    text-align: center;
+    line-height: 2rem;
+
+    outline: none;
+    cursor: pointer;
 }
