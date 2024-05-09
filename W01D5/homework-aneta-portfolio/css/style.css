@@ -220,9 +220,7 @@ nav {
 .portfolio_cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    /*grid-template-rows: 1fr 1fr;*/
     gap: 1rem;
-
 }
 
 .portfolio_cards_item {
