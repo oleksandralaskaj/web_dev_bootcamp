@@ -64,9 +64,13 @@ body {
         }
 
         & i {
-          color: $darkgray;
+          color: $middlegray;
           font-size: 3rem;
           margin-bottom: 1rem;
+        }
+
+        & p {
+          color: $middlegray;
         }
       }
 
