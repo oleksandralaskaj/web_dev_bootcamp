@@ -23,5 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 
-**/*.idea/*
+.idea
 package-lock.json
+.example
