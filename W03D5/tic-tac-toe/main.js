@@ -25,17 +25,15 @@ items.forEach((item) => item.addEventListener("click", () => {
         addNewRecord(item.getAttribute("id"))
         // do we have a winner?
         if (currentPlayer === "X" ? isWinner(movesX) : isWinner(movesO)) {
-            // items bocome unclickable
+            //make items unclickable
             winnerIsKnown = !winnerIsKnown;
-            //inform user about wictory of one of the players
+            //inform user about victory of one of the players
             for (let i = 5; i > 0; i--) {
                 setTimeout(() => {
                     changeInfo(`The winner is player ${currentPlayer}. New game in: ${i}s.`)
                 }, 1000 * (5 - i))
-
             }
-
-            //time to cimmunicate the end of game
+            //prepartion for new game
             setTimeout(() => {
                     // enable clicking again
                     winnerIsKnown = !winnerIsKnown;
@@ -51,13 +49,13 @@ items.forEach((item) => item.addEventListener("click", () => {
                 5000
             )
         } else {
-            // chaged current players value to the other one
+            //  as we don't have a winner
+            //  chaged current players value to the other one
             changePlayer()
             //prepare info for next round
             changeInfo(`Player ${currentPlayer}, it's your turn!`)
         }
     }
-
 }))
 // fx searches for a match between past moves of given player and victory combinations
 const isWinner = (arr) => victoryCombos.some(combo => combo.every(position => arr.includes(position)))
@@ -73,6 +71,6 @@ const changePlayer = () => {
 const changeInfo = (message) => {
     phInfo.textContent = message
 }
-
+// set inf to display when game is loaded for the first time
 changeInfo(`Player ${currentPlayer}, it's your turn!`)
 
