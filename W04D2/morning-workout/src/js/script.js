@@ -9,20 +9,23 @@ import { ProgressBar } from './ProgressBar';
 //
 //    code here:
 
+
+// start value is provided
 const pbOne = new ProgressBar(3)
 document.body.appendChild(pbOne.element)
+//start valu is omited
 const pbThree = new ProgressBar()
 document.body.appendChild(pbThree.element)
-
-const makeNewBar = (newBarName) => {
-    newBarName = new ProgressBar()
+// fx creates bar elemant and appends it to body
+const makeNewBar = (newBarName, startValue) => {
+    newBarName = new ProgressBar(startValue)
     document.body.appendChild(newBarName.element)
 }
-
-makeNewBar("pbFour")
+//bar with starttinf value created with fx
+makeNewBar("pbFour", 3)
+//bar without starttinf value created with fx
 makeNewBar("pbFive")
-makeNewBar("pbSix")
-makeNewBar("pbSeven")
+
 
 // @TODO no.2 once you have done TODO no.1 and you can see the progress bar,
 //    fix missing icon on plus button

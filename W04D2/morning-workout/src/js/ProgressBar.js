@@ -1,6 +1,6 @@
 export class ProgressBar {
-  constructor(startValue) {
-    this.value = startValue || 0;
+  constructor(startValue = 0) {
+    this.value = Number(startValue);
     this.gradient = 1;
     this.maxValue = 10;
     this.element = document.createElement('div');
