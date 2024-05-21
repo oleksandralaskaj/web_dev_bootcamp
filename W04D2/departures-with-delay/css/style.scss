@@ -23,13 +23,33 @@ section {
 h1 {
     color: royalblue;
     font-weight: 600;
+    text-align: center;
 }
 
 p {
     color: #313131;
 }
 
-.result {
-    color: royalblue;
-    font-weight: 400;
+
+.hidden {
+    display: none;
+}
+
+.loading {
+    margin: 10rem auto;
+    width: 100px;
+}
+
+.departures-list {
+    margin-top: 2rem;
+    gap: 1rem;
+}
+
+table {
+    margin: 0 auto;
+}
+
+th, td {
+    padding:1rem;
+    border-bottom: 1px solid royalblue;
 }
