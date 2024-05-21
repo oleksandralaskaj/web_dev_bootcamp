@@ -4,6 +4,7 @@
 body {
     margin: 0 auto;
     padding: 0;
+    width: 80%
 }
 
 button, input {
@@ -31,4 +32,17 @@ p {
 .result {
     color: royalblue;
     font-weight: 400;
+}
+.sortingContainer {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.sortingButton {
+    height: 2rem;
+    background-color: rgba(0, 134, 255, 0.22);
+    padding: 0.5rem 1rem;
+    line-height: 2;
+    border-radius: 5px;
 }
