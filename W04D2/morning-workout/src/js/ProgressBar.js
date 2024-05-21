@@ -1,6 +1,6 @@
 export class ProgressBar {
-  constructor() {
-    this.value = 0;
+  constructor(startValue) {
+    this.value = startValue || 0;
     this.gradient = 1;
     this.maxValue = 10;
     this.element = document.createElement('div');
@@ -37,5 +37,9 @@ export class ProgressBar {
     const minusBtn = this.element.querySelector('.btn-minus');
     //@TODO no.3
     //  implement logic for minus button. if you decrease the value, make sure, it is not less then 0
+    minusBtn.addEventListener("click", ()=> {
+      this.value = Math.max(0, this.value - this.gradient);
+      this.refreshElement();
+    })
   }
 }

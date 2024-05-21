@@ -9,7 +9,20 @@ import { ProgressBar } from './ProgressBar';
 //
 //    code here:
 
+const pbOne = new ProgressBar(3)
+document.body.appendChild(pbOne.element)
+const pbThree = new ProgressBar()
+document.body.appendChild(pbThree.element)
 
+const makeNewBar = (newBarName) => {
+    newBarName = new ProgressBar()
+    document.body.appendChild(newBarName.element)
+}
+
+makeNewBar("pbFour")
+makeNewBar("pbFive")
+makeNewBar("pbSix")
+makeNewBar("pbSeven")
 
 // @TODO no.2 once you have done TODO no.1 and you can see the progress bar,
 //    fix missing icon on plus button
