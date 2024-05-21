@@ -4,6 +4,7 @@
 body {
     margin: 0 auto;
     padding: 0;
+    width: 80%;
 }
 
 button, input {
@@ -31,4 +32,8 @@ p {
 .result {
     color: royalblue;
     font-weight: 400;
+}
+
+img {
+    height: 100px;
 }
