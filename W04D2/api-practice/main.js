@@ -37,3 +37,25 @@ const prepareHTMLforActivityResult = async () => {
     return `<p>${randomActivity}.</p>`
 }
 scBored.addInteraction(async () => scBored.printResult(await prepareHTMLforActivityResult()))
+
+
+
+
+///////////////// Dog image API /////////////////
+
+const scDog = new SectionInBody("dog",
+    "Woof to creativity", 'Rundom dog image for your inspiration:', 1)
+
+scDog.add()
+
+const generateRandomImg = async () => {
+    const data = await provideDataFromAPI("https://dog.ceo/api/breeds/image/random")
+    return data.message
+}
+
+const prepareHTMLforImgResult = async () => {
+    const pictureSrc = await generateRandomImg()
+    return `<img src="${pictureSrc}" alt = "random dog picture">`
+}
+
+scDog.addInteraction(async () => scDog.printResult(await prepareHTMLforImgResult()))
