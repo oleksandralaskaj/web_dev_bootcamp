@@ -1,55 +1,71 @@
 * {
-    font-family: Montserrat, sans-serif;
+  font-family: Montserrat, sans-serif;
 }
+
 body {
-    margin: 0 auto;
-    padding: 0;
-    width: 80%;
+  margin: 0 auto;
+  padding: 0;
+  width: 80%;
 }
 
 button, input {
-    border-radius: 5px;
-    border: royalblue 2px solid;
-    background-color: white;
-    padding: 0.5rem;
-    width: 50%;
-    margin: 1rem 0;
+  border-radius: 5px;
+  border: royalblue 2px solid;
+  background-color: white;
+  padding: 0.5rem;
+  width: 50%;
+  margin: 1rem 0;
 }
 
 section {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 h1 {
-    color: royalblue;
-    font-weight: 600;
-    text-align: center;
+  color: royalblue;
+  font-weight: 600;
+  text-align: center;
 }
 
 p {
-    color: #313131;
+  color: #313131;
 }
 
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 .loading {
-    margin: 10rem auto;
-    width: 100px;
+  margin: 10rem auto;
+  width: 100px;
 }
 
-.departures-list {
-    margin-top: 2rem;
-    gap: 1rem;
+.departures-list div {
+  margin-top: 2rem;
+  gap: 1rem;
+  display: flex;
 }
 
 table {
-    margin: 0 auto;
+  margin: 0 auto;
+  gap: 1rem;
+  border-spacing: 2rem 5px;
 }
 
-th, td {
-    padding:1rem;
-    border-bottom: 1px solid royalblue;
+th {
+  color: gray;
+  font-weight: 200;
+  text-align: left;
+}
+
+td {
+
+}
+
+.widget {
+  padding: 1rem;
+  border-bottom: 1px solid royalblue;
+  display: flex;
+  gap: 1rem;
 }

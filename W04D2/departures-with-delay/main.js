@@ -1,3 +1,5 @@
+import {Train} from "./Train.js";
+
 const loadingScreen = document.querySelector(".loading")
 const phDeparturesList = document.querySelector(".departures-list")
 
@@ -11,18 +13,13 @@ const loadData = async (url) => {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-    const arrDepartures = await loadData("https://classes.codingbootcamp.cz/assets/classes/api/departures-slow.php")
+    const arrDepartures = await loadData("https://classes.codingbootcamp.cz/assets/classes/api/departures.php")
 
     arrDepartures.forEach(dep => {
-        const tableRow = document.createElement("tr")
-        tableRow.innerHTML = `
-                <td>${dep.time.hrs}:${dep.time.mins}</td>
-                <td>${dep.train}</td>
-                <td>${dep.no}</td>
-                <td>${dep.to}</td>
-                <td>${dep.status}</td>
-                <td>${dep.track}</td>`
-        phDeparturesList.appendChild(tableRow)
+        const objWidget = new Train(dep)
+        const elWidget = objWidget.getElement()
+
+        phDeparturesList.appendChild(elWidget)
     })
 
     hideElementToggle(phDeparturesList)
