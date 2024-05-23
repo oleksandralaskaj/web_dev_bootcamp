@@ -19,4 +19,3 @@ const resetStarsColor = (arr, rating) => {
         arr[i].classList.add("rating__star--on")
     }
 }
-
