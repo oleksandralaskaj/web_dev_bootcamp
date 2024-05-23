@@ -1,0 +1,84 @@
+* {
+  font-family: Montserrat, sans-serif;
+}
+
+body {
+  margin: 0 auto;
+  padding: 0;
+  width: 80%;
+}
+
+button, input {
+  border-radius: 5px;
+  border: royalblue 2px solid;
+  background-color: white;
+  padding: 0.5rem;
+  width: 50%;
+  margin: 1rem 0;
+}
+
+section {
+  margin-bottom: 2rem;
+}
+
+h1 {
+  color: royalblue;
+  font-weight: 600;
+}
+
+p {
+  color: #313131;
+}
+
+.result {
+  color: royalblue;
+  font-weight: 400;
+}
+
+#exercise_fixed_box {
+  position: fixed;
+  left: 10%;
+  top: 10%;
+  height: 100px;
+  width: 100px;
+  background-color: green;
+  color: white;
+  text-align: center;
+  line-height: 6;
+  vertical-align: center;
+  transition: transform 3s ease;
+
+  &.moved {
+    transform: translate(80vw, 80vh);
+  }
+}
+
+#exercise_bg_box {
+  padding: 2em;
+  background-color: red;
+  color: white;
+  position: absolute;
+  left: 20%;
+  top: 10%;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  transition: background-color 2s ease-in-out,
+  color 2s ease-in-out,
+  border 2s ease-in-out,
+  opacity 2s ease-in-out,
+  padding 2s ease-in-out,
+  width 3s ease-in-out,
+  height 3s ease-in-out;
+
+  &.chaged {
+    background-color: pink;
+    color: #313131;
+    border: 1px solid #313131;
+    border-radius: 6px;
+    opacity: 50%;
+    padding: 5emem;
+    width: 150px;
+    height: 150px;
+  }
+}

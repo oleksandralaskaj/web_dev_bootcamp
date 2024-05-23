@@ -1,0 +1,52 @@
+* {
+    font-family: Montserrat, sans-serif;
+}
+body {
+    margin: 0 auto;
+    padding: 0;
+    width: 80%;
+}
+
+button, input {
+    border-radius: 5px;
+    border: royalblue 2px solid;
+    background-color: white;
+    padding: 0.5rem;
+    width: 50%;
+    margin: 1rem 0;
+}
+
+section {
+    margin-bottom: 2rem;
+}
+
+h1 {
+    color: royalblue;
+    font-weight: 600;
+}
+
+p {
+    color: #313131;
+}
+
+img {
+    height: 150px;
+}
+
+.result {
+    color: royalblue;
+    font-weight: 400;
+}
+
+#spinner {
+    animation: 3s infinite rotate360;
+}
+
+@keyframes rotate360  {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
