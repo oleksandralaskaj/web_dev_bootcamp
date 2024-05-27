@@ -1,16 +1,19 @@
 import {useState} from "react";
 
 export const Anchor = ({href, title}) => {
-    let [clicked, setClicked] = useState(false)
+    let [count, setCount] = useState(0)
 
-    if (!clicked) {
-        return (<button onClick={() => {
-            setClicked(true)
-        }}>{title}</button>)
+    if (count < 2) {
+        return (<div>
+            <span className={count === 0 ? "hidden" : ""}>Are you sure?</span>
+            <button onClick={() => {
+                setCount(count + 1)
+            }}>{title}</button>
+        </div>)
     }
 
     return <div>
-        <span>Are you sure? </span>
+        <span>Are really you sure? </span>
         <a href={href} target="_blank">{title}</a>
     </div>
 }
