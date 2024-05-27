@@ -1,12 +1,8 @@
-import { useState } from 'react'
+import React, {useState} from 'react'
 import './App.scss'
 
 function App() {
-
-  return (
-    <>
-    </>
-  )
+    return
 }
 
 export default App
