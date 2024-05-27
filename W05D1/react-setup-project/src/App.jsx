@@ -1,8 +1,12 @@
-import React, {useState} from 'react'
 import './App.scss'
-
+import {Hello}  from "./Hello.jsx"
 function App() {
-    return
+    return (
+        <>
+            <Hello/>
+            <p>And hello back from App.</p>
+        </>
+    )
 }
 
 export default App
