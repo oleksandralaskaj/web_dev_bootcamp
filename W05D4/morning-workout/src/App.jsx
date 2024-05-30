@@ -1,12 +1,9 @@
 import './App.scss'
-import {Hello}  from "./Hello.jsx"
+import {GetCatFact} from "./Hello.jsx"
+import {useEffect, useState} from "react";
+
 function App() {
-    return (
-        <>
-            <Hello/>
-            <p>And hello back from App.</p>
-        </>
-    )
+    return <GetCatFact />
 }
 
 export default App
