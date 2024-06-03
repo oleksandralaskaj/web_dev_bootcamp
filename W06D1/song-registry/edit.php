@@ -2,12 +2,11 @@
 require_once "DBBlackbox.php";
 require_once "Song.php";
 
-$song = new Song(); ?>
+$id = $_GET["id"];
+$song = find($id, 'Song')
+?>
 
-
-<form action="insert.php" method="post">
-
-    <!-- display the form prefilled with entity data -->
+<form action="update.php?id=<?= $id ?>" method="post">
 
     Name:<br>
     <input type="text" name="name" value="<?= htmlspecialchars((string)$song->name) ?>"><br>
@@ -28,6 +27,3 @@ $song = new Song(); ?>
     <button type="submit">Save</button>
 
 </form>
-
-
-
