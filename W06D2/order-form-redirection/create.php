@@ -1,7 +1,20 @@
 <?php
-session_start();
-unset($_SESSION['test']);
-$_SESSION['start'] = date('H:i:s');
+//using static as class to start session
+//require_once "Session.php";
+//$session = Session::instance();
+
+//using superglobal to start session
+//$_SESSION['start'] = date('H:i:s');
+
+//use helper function file to start session
+//require_once "helper.php";
+//$session = session();
+
+//usisng dependencies included in bootstrap file
+require_once "bootstrap.php";
+$session = session();
+var_dump($session);
+
 ?>
 
 

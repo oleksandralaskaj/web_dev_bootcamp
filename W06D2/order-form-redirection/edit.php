@@ -1,18 +1,17 @@
 <?php
-require_once "DBBlackbox.php";
 require_once "Order.php";
+require_once "bootstrap.php";
 
-session_start();
+$session = Session::instance();
 
-$order = find($_GET['id'], 'Order');
+$id = $_GET['id'];
+$order = find($id, 'Order');
 
-$messages = $_SESSION['validation_massages'] ?? null;
-unset($_SESSION['validation_massages'])
+$message = session()->get("message") ?? null;
 ?>
-<?php foreach ($messages as $message): ?>
+
     <p><?= $message ?></p>
-<?php endforeach; ?>
-    <form action="update.php?id=<?= $order->id ?>" method="post">
+    <form action="update.php?id=<?= $id ?>" method="post">
         <h2>CUSTOMER INFORMATION</h2>
         Name of user: <br>
         <input type="text" name="name" value="<?= $order->name ?>">

@@ -1,8 +1,9 @@
 <?php
-require_once "DBBlackbox.php";
 require_once "Order.php";
+require_once "bootstrap.php";
 
-session_start();
+
+$session = Session::instance();
 
 $order = new Order();
 $order->name = $_POST['name'] ?? null;
@@ -15,6 +16,6 @@ $order->order_notes = $_POST['order_notes'] ?? null;
 
 $id = insert($order);
 
-$_SESSION['message'] = 'New inserted order with id ' . $id;
+session()->put("message", "Order with id {$id} was inserted.");
 header('Location: /W06D2/order-form-redirection/edit.php?id='.$id);
 exit();
