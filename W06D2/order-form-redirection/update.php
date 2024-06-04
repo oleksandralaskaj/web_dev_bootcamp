@@ -2,7 +2,8 @@
 require_once "Order.php";
 require_once "bootstrap.php";
 
-$session =Session::instance();
+$session =session();
+$session->flashRequest();
 $validation_errors = [];
 //all validations
 if (empty($_POST['name'])) {
@@ -35,7 +36,7 @@ $order->order_notes = $_POST['order_notes'] ?? null;
 update($id, $order);
 
 //$_SESSION['message'] = 'Order with id ' . $id . ' was updated.';
-session()->put("message", "Order with id {$id} was updated.");
+session()->flash("message", "Order with id {$id} was updated.");
 
 header('Location: /W06D2/order-form-redirection/edit.php?id=' . $id);
 exit();

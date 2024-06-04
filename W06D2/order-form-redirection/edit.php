@@ -18,7 +18,7 @@ $message = session()->get("message") ?? null;
         <br>Phone number: <br>
         <input type="text" name="phone" value="<?= $order->phone ?>">
         <br>Email adress: <br>
-        <input type="text" name="email" value="<?= $order->email ?>">
+        <input type="text" name="email" value="<?= old('email', $order->email) ?>">
         <br> Adress: <br>
         <input type="text" name="adress" value="<?= $order->adress ?>">
 
