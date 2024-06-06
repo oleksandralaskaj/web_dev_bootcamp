@@ -1,10 +1,10 @@
 import './App.scss'
-import {Hello}  from "./Hello.jsx"
+import {Fact} from "./Fact.jsx";
+
 function App() {
     return (
         <>
-            <Hello/>
-            <p>And hello back from App.</p>
+            <Fact/>
         </>
     )
 }
