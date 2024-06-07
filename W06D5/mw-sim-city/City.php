@@ -1,11 +1,14 @@
 <?php
 
 require_once "DB.php";
+require_once "DB_functions.php";
+$success = DB::connect('localhost', 'world', 'root', '');
 
 class City
 {
-    public function insert()
+    public static function  insert($data)
     {
-        echo "<h3>Trying to build the city, but can't. Change me to save the new city into the database!</h3>";
+        $query = "INSERT INTO sim_cities (name, country_id, district, population) VALUES (?, ?, ?, ?)";
+        DB::insert($query, [$data['name'], $data['country_id'], $data['district'], $data['population']]);
     }
 }
