@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+class MovieController extends Controller
+{
+    public function topRated()
+    {
+        $films = DB::select('SELECT * FROM movies ORDER BY rating DESC LIMIT 50');
+        return view('top-rated.index-movies', compact('films'));
+    }
+
+    public function shawshank()
+    {
+        $film = DB::selectOne('SELECT * FROM movies WHERE name LIKE "%The Shawshank Redemption%"');
+
+        return view('movies.shawshank-redemption', compact('film'));
+    }
+
+    public function search()
+    {
+        if (isset($_GET['search'])) {
+            $reference = $_GET['search'];
+            $films = DB::table('movies')
+                ->where('name', 'LIKE', $reference . '%')
+                ->limit(10)
+                ->get();
+            return view('movies.search', compact('films'));
+        }
+        return view('movies.search');
+    }
+
+}

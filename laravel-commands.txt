@@ -14,4 +14,6 @@ sudo nano /etc/host
 insert new url:
 127.0.0.1   www.laravel.test
 
-change vhost file pinting to folder
+change vhost file pointing to folder
+
+Change .env url na konkretni
