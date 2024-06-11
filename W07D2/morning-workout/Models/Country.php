@@ -15,6 +15,8 @@ class Country
     public $head_of_state = null;
     public $capital_city_id = null;
 
+    protected $relationships = [];
+
     public static function getCountryByCode(string $code): ?Country
     {
         return DB::selectOne('
@@ -24,5 +26,26 @@ class Country
         ', [
             $code
         ], 'Country');
+    }
+
+    public function __get($property_name)
+    {
+        if (array_key_exists($property_name, $this->relationships)) {
+            // if this data has already been loaded, return it
+            return $this->relationships[$property_name];
+        }
+        if ($property_name === 'cities') {
+            $this->relationships['cities'] = City::getCitiesForCountry($this->id);
+
+            return $this->relationships['cities'];
+        }
+
+        $trace = debug_backtrace();
+        trigger_error(
+            'Undefined property via __get(): ' . $property_name .
+            ' in ' . $trace[0]['file'] .
+            ' on line ' . $trace[0]['line'],
+            E_USER_NOTICE
+        );
     }
 }

@@ -9,11 +9,10 @@ sudo chmod 0777 vendor
 
 
 change hosts:
-sudo nano /etc/host
+sudo nano /etc/hosts
 
 insert new url:
 127.0.0.1   www.laravel.test
 
 change vhost file pointing to folder
 
-Change .env url na konkretni

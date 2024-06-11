@@ -35,6 +35,7 @@ $country = Country::getCountryByCode('CZ');
 
 
 
+
 /**
  * RESPONSE
  * (This is what a view would do)
