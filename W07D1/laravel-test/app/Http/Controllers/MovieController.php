@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -33,4 +34,11 @@ class MovieController extends Controller
         return view('movies.search');
     }
 
+    public function movieType()
+    {
+        $movie = Movie::find(468569);
+        $movie_type= $movie->movieType->name;
+        $movie_name= $movie->name;
+        return view('movies.movie-type', compact('movie_name', 'movie_type'));
+    }
 }

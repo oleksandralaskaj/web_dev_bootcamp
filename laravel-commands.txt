@@ -16,3 +16,4 @@ insert new url:
 
 change vhost file pointing to folder
 
+Change db type and name in .env

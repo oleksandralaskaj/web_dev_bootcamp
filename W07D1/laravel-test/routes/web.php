@@ -12,6 +12,8 @@ Route::get('/genres', [App\Http\Controllers\GenreController::class, 'index']);
 
 Route::get('/movies/top-rated-movies', [App\Http\Controllers\MovieController::class, 'topRated']);
 
+Route::get('/movies/movie-type', [App\Http\Controllers\MovieController::class, 'movieType']);
+
 Route::get('/movies/shawshank-redemptions', [App\Http\Controllers\MovieController::class, 'shawshank']);
 
 Route::get('/movies/search', [App\Http\Controllers\MovieController::class, 'search']);
