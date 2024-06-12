@@ -18,7 +18,6 @@ class HomepageController extends Controller
         $employer_id = $offer->offeree->id;
         $employer = Offeree::find($employer_id);
         $offers_of_employer =$employer->offers;
-        dd($offers_of_employer);
-        return view('index', compact('employer_name'));
+        return view('index', compact('employer_name', 'offers_of_employer'));
     }
 }
