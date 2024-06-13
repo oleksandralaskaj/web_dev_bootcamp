@@ -20,3 +20,9 @@ Route::get('/movies/search', [App\Http\Controllers\MovieController::class, 'sear
 
 Route::get('/genres/search-by-genre', [App\Http\Controllers\GenreController::class, 'genre']);
 
+Route::get('/movies/{movie_id}/review', [App\Http\Controllers\ReviewController::class, 'show']);
+
+Route::post('/movies/{movie_id}/review', [App\Http\Controllers\ReviewController::class, 'store'])->name('movie.review');
+
+Route::get('/movies/movie-requests', [App\Http\Controllers\MovieRequestController::class, 'index']);
+
