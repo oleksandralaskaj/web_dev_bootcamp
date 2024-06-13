@@ -28,5 +28,7 @@ Route::get('/movies/movie-requests', [App\Http\Controllers\MovieRequestControlle
 
 Route::get('/movies/movie-requests/create', [App\Http\Controllers\MovieRequestController::class, 'create']);
 
-Route::post('/movies/movie-requests/store', [App\Http\Controllers\MovieRequestController::class, 'store'])->name('movie-requests.store');
+Route::get('/movies/movie-requests/edit/{id?}', [App\Http\Controllers\MovieRequestController::class, 'create'])->name('movies-requests.edit');
+
+Route::post('/movies/movie-requests/store/{id?}', [App\Http\Controllers\MovieRequestController::class, 'store'])->name('movie-requests.store');
 

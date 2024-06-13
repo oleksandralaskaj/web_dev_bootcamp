@@ -12,18 +12,22 @@ class MovieRequestController extends Controller
 {
     public function index()
     {
-        $movie_request = MovieRequest::with("movieType")->get();
-        return view('movie-requests.index', compact('movie_request'));
+        $movie_requests = MovieRequest::with("movieType")->get();
+        return view('movie-requests.index', compact('movie_requests'));
     }
 
-    public function create()
+    public function create(Request $request, $id = null)
     {
         $movie_types = MovieType::get();
-
-        return view('movie-requests.create', compact('movie_types'));
+        if ($id) {
+            $movie_request = MovieRequest::findOrFail($id);
+        } else {
+            $movie_request = new MovieRequest;
+        }
+        return view('movie-requests.create', compact('movie_types', 'movie_request'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $id = null)
     {
         $movie_type_ids = MovieType::get()->pluck('id');
         //validation
@@ -36,7 +40,12 @@ class MovieRequestController extends Controller
         ]);
 
         //create a new request object
-        $movie_request = new MovieRequest;
+        if ($id) {
+            $movie_request = MovieRequest::findOrFail($id);
+        } else {
+            $movie_request = new MovieRequest;
+        }
+
         //giv it a data
         $movie_request->full_name = $request->input('full_name');
         $movie_request->email = $request->input('email');
