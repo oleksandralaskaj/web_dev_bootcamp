@@ -1,5 +1,7 @@
 <h1>Movie requests list</h1>
-
+@if(session()->has("success_message"))
+    <p> {{session()->get("success_message")}}</p>
+@endif
 <table>
     <thead>
     <th>#</th>

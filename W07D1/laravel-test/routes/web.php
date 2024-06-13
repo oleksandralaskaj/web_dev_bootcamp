@@ -24,5 +24,9 @@ Route::get('/movies/{movie_id}/review', [App\Http\Controllers\ReviewController::
 
 Route::post('/movies/{movie_id}/review', [App\Http\Controllers\ReviewController::class, 'store'])->name('movie.review');
 
-Route::get('/movies/movie-requests', [App\Http\Controllers\MovieRequestController::class, 'index']);
+Route::get('/movies/movie-requests', [App\Http\Controllers\MovieRequestController::class, 'index'])->name('movie-requests.index');
+
+Route::get('/movies/movie-requests/create', [App\Http\Controllers\MovieRequestController::class, 'create']);
+
+Route::post('/movies/movie-requests/store', [App\Http\Controllers\MovieRequestController::class, 'store'])->name('movie-requests.store');
 

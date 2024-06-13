@@ -10,7 +10,8 @@ class ReviewController extends Controller
 {
     public function show()
     {
-        return view('reviews.store-review', );
+        $id =1;
+        return view('reviews.store-review',  compact('id'));
     }
     public function store($movie_id)
     {

@@ -21,10 +21,10 @@ class MovieController extends Controller
         return view('movies.shawshank-redemption', compact('film'));
     }
 
-    public function search()
+    public function search(Request $request)
     {
-        if (isset($_GET['search'])) {
-            $reference = $_GET['search'];
+        if (isset($request->search)) {
+            $reference = $request->search;
             $films = DB::table('movies')
                 ->where('name', 'LIKE', $reference . '%')
                 ->limit(10)
@@ -33,6 +33,7 @@ class MovieController extends Controller
         }
         return view('movies.search');
     }
+
 
     public function movieType()
     {
