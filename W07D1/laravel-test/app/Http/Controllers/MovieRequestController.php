@@ -29,8 +29,8 @@ class MovieRequestController extends Controller
 
     public function store(Request $request, $id = null)
     {
-        $movie_type_ids = MovieType::get()->pluck('id');
         //validation
+        $movie_type_ids = MovieType::get()->pluck('id');
         $request->validate([
             'full_name' => "required",
             'email' => "required",
