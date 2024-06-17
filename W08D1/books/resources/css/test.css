@@ -1,0 +1,14 @@
+* {
+    font-family: Montserrat, sans-serif;
+    color: #2d3748;
+}
+
+nav {
+    font-weight: 400;
+    background-color: #cbd5e0;
+    padding: 1rem;
+
+    .highlighted {
+        font-weight: 800;
+    }
+}
