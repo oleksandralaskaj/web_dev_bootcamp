@@ -11,31 +11,32 @@ class AuthorController extends Controller
 {
     public function index()
     {
-        $authors = Author::limit(10)->get();
+        $authors = Author::limit(15)
+            ->get();
 
-        return view('authors.authors', compact('authors'));
+        return view('authors.index', compact('authors'));
     }
 
     public function create()
     {
-        return view('authors.author-create');
+        return view('authors.create');
     }
 
-    public function save(Request $r)
+    public function store(Request $request)
     {
-        $r->validate([
-            'slug' => "required",
-            'name' => "required",
+        $request->validate([
+            'name' => 'required',
+            'slug' => 'required|unique:authors'
         ]);
+
         $author = new Author;
-
-        $author->slug = $r->input('slug');
-        $author->name = $r->input('name');
-        $author->bio = $r->input('bio');
-
+        $author->name = $request->input('name');
+        $author->slug = $request->input('slug');
+        $author->bio = $request->input('bio');
         $author->save();
-        session()->flash('success_message', 'New author has been added.');
-        //redirect to list page
-        return redirect()->route('admin.authors');
+
+        session()->flash('success_message', 'Author has been created!');
+
+        return redirect()->route('authors.index');
     }
 }

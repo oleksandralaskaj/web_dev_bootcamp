@@ -6,7 +6,8 @@ export default defineConfig({
         laravel({
             input: [
                     'resources/js/app.js',
-                    'resources/css/test.css'
+                    'resources/css/test.css',
+                    'resources/js/latest-books.js'
             ],
             refresh: true,
         }),
