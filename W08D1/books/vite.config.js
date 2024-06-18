@@ -7,7 +7,8 @@ export default defineConfig({
             input: [
                     'resources/js/app.js',
                     'resources/css/test.css',
-                    'resources/js/latest-books.js'
+                    'resources/js/latest-books.js',
+                    'resources/js/crime-books.js'
             ],
             refresh: true,
         }),

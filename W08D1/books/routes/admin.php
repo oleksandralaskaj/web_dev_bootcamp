@@ -17,3 +17,5 @@ Route::get('/books/edit/{id}', [App\Http\Controllers\Admin\BookController::class
 Route::post('/books/store', [App\Http\Controllers\Admin\BookController::class, 'store'])->name('books.store');
 
 Route::put('/books/store/{id}', [App\Http\Controllers\Admin\BookController::class, 'store'])->name('books.update');
+
+Route::get('/books/crime', [\App\Http\Controllers\CrimeController::class, 'index'])->name('books.crime');

@@ -1,5 +1,5 @@
 @extends('layouts.main', [
-    'current_page' => 'index'
+    'current_page' => 'latest'
 ])
 @section('content')
 <ol id="latest-books">

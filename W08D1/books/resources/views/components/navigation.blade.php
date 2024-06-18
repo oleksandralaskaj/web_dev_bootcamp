@@ -6,4 +6,5 @@
     <a href="{{route('admin.books.index')}}" class="{{ $current_page == 'books' ? 'highlighted' : '' }}">Books list</a>
     <a href="{{route('admin.books.create')}}" class="{{ $current_page == 'books.create' ? 'highlighted' : '' }}">Add new book</a>
     <a href="{{route('latest')}}" class="{{ $current_page == 'latest' ? 'highlighted' : '' }}">Latest books</a>
+    <a href="{{route('admin.books.crime')}}" class="{{ $current_page == 'crime' ? 'highlighted' : '' }}">Crime books</a>
 </nav>

@@ -10,7 +10,9 @@ class MainController extends Controller
 {
     public function latest()
     {
-        $books = Book::orderBy('publication_date', 'desc')->limit(20)->get();
-        return $books;
+        return Book::orderBy('publication_date', 'desc')
+            ->limit(20)
+            ->get();
     }
+
 }
