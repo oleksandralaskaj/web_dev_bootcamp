@@ -15,4 +15,12 @@ class MainController extends Controller
             ->get();
     }
 
+    public function search(Request $request)
+    {
+        $search = $request->query('search');
+        $results = Book::where('title', 'like', "%{$search}%")
+            ->limit(10)->get();
+        return $results;
+    }
+
 }

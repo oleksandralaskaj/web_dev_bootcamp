@@ -8,7 +8,8 @@ export default defineConfig({
                     'resources/js/app.js',
                     'resources/css/test.css',
                     'resources/js/latest-books.js',
-                    'resources/js/crime-books.js'
+                    'resources/js/crime-books.js',
+                    'resources/js/book-search.js'
             ],
             refresh: true,
         }),
