@@ -11,7 +11,8 @@ export default defineConfig({
                 'resources/js/latest-books.js',
                 'resources/js/crime-books.js',
                 'resources/js/book-search.js',
-                'resources/js/users-list/src/main.jsx'
+                'resources/js/author-search.js',
+                'resources/js/users-list/src/main.jsx',
             ],
             refresh: true,
         }),

@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class BookController extends Controller
@@ -71,5 +73,13 @@ class BookController extends Controller
         }
 
         return redirect()->route('books.index');
+    }
+
+
+    public function deleteReview($id, $review_id)
+    {
+        $review = Review::findOrFail($review_id);
+        $review->delete();
+        return redirect()->back();
     }
 }

@@ -13,7 +13,6 @@
 @include('components.navigation', [
     'current_page' => $current_page
 ])
-@include('components.search')
 @yield('content')
 
 </body>

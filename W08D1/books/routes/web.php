@@ -8,7 +8,15 @@ Route::get('/about-us', [\App\Http\Controllers\AboutController::class, 'about'])
 Route::get('/latest', [\App\Http\Controllers\LatestController::class, 'index'])->name('latest');
 
 Route::get('/book/{id}', [\App\Http\Controllers\BookController::class, 'show'])->name('detail');
-Route::post('/book/review/{id}', [\App\Http\Controllers\BookController::class, 'store'])->name('review');
+
+Route::post('/book/{id}/reviews', [\App\Http\Controllers\BookController::class, 'storeReview'])->name('review')->middleware('auth');
+
+Route::get('/bookshop/{id}', [\App\Http\Controllers\BookshopController::class, 'show'])->name('bookshop');
+
+Route::get('/authors/search', [\App\Http\Controllers\AuthorController::class, 'search'])->name('authors.search');
+
+Route::get('/authors/{id}', [\App\Http\Controllers\AuthorController::class, 'detail'])->name('authors.detail');
+
 
 
 Route::group(['middleware' => 'can:admin'], function() {
@@ -31,6 +39,8 @@ Route::group(['middleware' => 'can:admin'], function() {
 
     Route::get('/books/crime', [\App\Http\Controllers\CrimeController::class, 'index'])->name('books.crime');
 
-    Route::get('/admin/users', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('users')->middleware('auth');;
+    Route::get('/admin/users', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('users')->middleware('auth');
+
+    Route::delete('books/{id}/reviews/{review_id}}', [\App\Http\Controllers\Admin\BookController::class, 'deleteReview'])->name('review.delete');
 });
 

@@ -9,7 +9,7 @@
     <a href="{{route('books.create')}}" class="{{ $current_page == 'books.create' ? 'highlighted' : '' }}">Add new
         book</a>
     <a href="{{route('latest')}}" class="{{ $current_page == 'latest' ? 'highlighted' : '' }}">Latest books</a>
-    <a href="{{route('books.crime')}}" class="{{ $current_page == 'crime' ? 'highlighted' : '' }}">Crime books</a>
+    <a href="{{route('books.crime')}}" class="{{ $current_page == 'crime' ? 'highlighted' : '' }}">Search in authors</a>
 
     @guest
         <a href="{{route('login')}}" class="{{ $current_page == 'login' ? 'highlighted' : '' }}">Login page</a>

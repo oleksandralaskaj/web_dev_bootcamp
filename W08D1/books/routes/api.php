@@ -6,3 +6,4 @@ Route::get('/books/latest', [\App\Http\Controllers\Api\MainController::class, 'l
 Route::get('/books/crime', [\App\Http\Controllers\Api\MainController::class, 'crime']);
 Route::get('/books/search', [\App\Http\Controllers\Api\MainController::class, 'search'])->name('search');
 Route::get('/users', [\App\Http\Controllers\Api\UserController::class, 'index'])->name('users');
+Route::get('/authors/search', [\App\Http\Controllers\Api\MainController::class, 'searchAuthor'])->name('authors.search');

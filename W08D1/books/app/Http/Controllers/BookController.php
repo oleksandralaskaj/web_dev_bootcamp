@@ -16,7 +16,7 @@ class BookController extends Controller
         return view('books.detail', compact('book'));
     }
 
-    public function store(Request $r, $id)
+    public function storeReview(Request $r, $id)
     {
         $r->validate([
             'text' => 'required|max:255'
