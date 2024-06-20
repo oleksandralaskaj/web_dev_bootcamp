@@ -17,11 +17,11 @@
         </div>
     @endif
 
-    <a href="{{ route('admin.books.create') }}">+ Add a book</a>
+    <a href="{{ route('books.create') }}">+ Add a book</a>
     <ul class="books-list">
         @foreach ($books as $book)
             <li>
-                <a href="{{ route('admin.books.edit', $book->id) }}">{{ $book->title }}</a>
+                <a href="{{ route('books.edit', $book->id) }}">{{ $book->title }}</a>
             </li>
         @endforeach
     </ul>

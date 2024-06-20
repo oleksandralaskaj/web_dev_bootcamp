@@ -14,10 +14,10 @@
 @endif
 
 @if ($book->id)
-    <form action="{{ route('admin.books.update', $book->id) }}" method="post">
+    <form action="{{ route('books.update', $book->id) }}" method="post">
         @method('put')
         @else
-            <form action="{{ route('admin.books.store') }}" method="post">
+            <form action="{{ route('books.store') }}" method="post">
                 @endif
 
                 @csrf
