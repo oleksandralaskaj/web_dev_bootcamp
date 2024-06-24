@@ -6,3 +6,21 @@ nav{
     padding: 1rem;
     border-radius: 20px;
 }
+
+.poll {
+    background-color: #e7eeff;
+    margin-bottom: 0.5rem;
+    border-radius: 20px;
+    padding: 1rem;
+}
+
+fieldset {
+    border: 0px;
+}
+
+.info {
+    background-color: pink;
+    border-radius: 20px;
+    padding: 1rem;
+    width: 50vw;
+}

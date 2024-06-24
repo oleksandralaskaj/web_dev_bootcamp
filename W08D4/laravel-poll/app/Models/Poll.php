@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Poll extends Model
 {
     use HasFactory;
+
+    public function options()
+    {
+        return $this->hasMany(Option::class);
+    }
+
+
+    public function admin()
+    {
+        return $this->belongsTo(User::class)->name;
+    }
 }

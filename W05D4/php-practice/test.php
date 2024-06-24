@@ -1,3 +1,14 @@
+<?php $students = [
+    '1234'=> "Mike",
+    '4567'=> "Sike",
+    '7890'=> "Rike",
+    ] ?>
+
+  <?php  foreach($students as $student) : ?>
+       <li>{$student}</li>
+<?php endforeach?>
+
+
 <!--Thare can be siple html outside php tag-->
 <p>First hello form html</p>
 <!--the most basic wat of including php-->

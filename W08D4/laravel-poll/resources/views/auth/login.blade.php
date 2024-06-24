@@ -1,3 +1,7 @@
+@extends('layouts.main', [
+    'current_page' => 'login'
+])
+@section('content')
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -18,3 +22,4 @@
 
     <button>Login</button>
 </form>
+@endsection
