@@ -1,0 +1,17 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+
+  .buttons {
+    position: relative;
+    z-index: 20;
+  }
+}
+
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: #535bf2;
+}
