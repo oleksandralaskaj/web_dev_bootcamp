@@ -1,8 +1,7 @@
-import {useContext} from "react";
-import ThemeContext from "../ThemeContext.js";
+import {useThemeContext} from "../ThemeContext.jsx";
 
 export function Background() {
-    const {theme, setTheme} = useContext(ThemeContext);
+    const {theme, setTheme} = useThemeContext()
 
     return (
         <div className={theme}>
