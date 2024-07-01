@@ -9,11 +9,36 @@
     <link rel="stylesheet" href="style.scss">
   </head>
   <body>
+  <nav class="left-menu">
 
+    <div class="left-menu__visibility-toggle">&#60;</div>
+
+    <div class="left-menu__content">
+
+      <div class="left-menu__header">
+        <img class="left-menu__seal" src="../public/mi6-seal.png" alt="MI6 seal" />
+      </div>
+
+      <div class="left-menu__links">
+        <a href="/">Home</a>
+        <a href="/people-of-interest">People of interest</a>
+      </div>
+    </div>
+
+  </nav>
+
+  <div class="main">
     <h1>Welcome to MI6</h1>
+  </div>
 
-    <!-- your code here -->
-    <!-- refer to images in /public with URLs beginning with / -->
+  <script>
+    const button = document.querySelector('.left-menu__visibility-toggle')
+    const navPanel = document.querySelector('.left-menu')
 
+    button.addEventListener('click', () => {
+      navPanel.classList.toggle('left-menu_hidden')
+      button.textContent = button.textContent == '>' ? '<' : '>'
+    })
+  </script>
   </body>
 </html>
