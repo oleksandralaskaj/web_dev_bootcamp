@@ -1,0 +1,15 @@
+{
+  "name": "vite-starter",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite serve src --config ./vite.config.js",
+    "build": "vite build src --config ./vite.config.js",
+    "preview": "vite preview src --config ./vite.config.js"
+  },
+  "devDependencies": {
+    "sass": "^1.59.2",
+    "vite": "^4.1.0"
+  }
+}
