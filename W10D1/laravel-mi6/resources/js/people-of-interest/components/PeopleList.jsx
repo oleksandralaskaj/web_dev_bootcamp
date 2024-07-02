@@ -1,20 +1,25 @@
 import React, {useEffect, useState} from "react";
+import {StatusFilter} from "./StatusFilter.jsx";
 
 export const PeopleList = ({handler}) => {
     const [people, setPeople] = useState([])
+    const [selectedStatus, setSelectedStatus] = useState('')
 
     const getPeople = async () => {
-        const res = await fetch('/api/people-of-interest')
+        const url = selectedStatus ? '/api/people' + '?status=' + encodeURIComponent(selectedStatus) : '/api/people'
+        const res = await fetch(url)
         const data = await res.json()
-        console.log(data)
         setPeople(data)
     }
     useEffect(() => {
         getPeople()
-    }, [])
+    }, [selectedStatus])
 
 
-    return (
+    return (<>
+        <div>
+            <StatusFilter selectedStatus={selectedStatus} handler={setSelectedStatus}/>
+        </div>
         <ul>
             {
                 people.map((person) => <li key={person.id}>
@@ -23,5 +28,5 @@ export const PeopleList = ({handler}) => {
                 </li>)
             }
         </ul>
-    )
+    </>)
 }

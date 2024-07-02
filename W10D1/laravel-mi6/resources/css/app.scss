@@ -3,11 +3,9 @@
 
 html {
     font-family: 'Noto Serif Display', serif;
-    //height: 100vh;
 }
 body {
     margin: 0;
-    //height: 100vh;
 }
 
 body > div {
@@ -89,11 +87,26 @@ body > div {
     justify-content: center;
     align-items: center;
     padding: 1rem;
-    //height: 100vh;
+
 
     h1 {
         font-weight: 200;
         font-size: 4rem;
         margin-top: 0;
+    }
+}
+
+.select-filter {
+
+    .status-filter__status_selected {
+        background-color: #80fcf6;
+    }
+    button {
+        background: #edfffe;
+        color: #2B5554;
+        border: 0;
+        margin: 8px;
+        padding: 1rem;
+        border-radius: 16px;
     }
 }
