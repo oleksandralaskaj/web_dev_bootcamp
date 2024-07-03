@@ -1,6 +1,9 @@
 import React, {useState} from "react";
+import {Home} from "../pages/Home.jsx";
+import {People} from "../pages/People.jsx";
+import {Link} from "react-router-dom";
 
-export const Navigation = () => {
+export const Navigation = ({handler}) => {
     const [collapsed, setCollapsed] = useState(false)
 
     return (
@@ -16,8 +19,9 @@ export const Navigation = () => {
                 </div>
 
                 <div className="left-menu__links">
-                    <a href="/">Home</a>
-                    <a href="/people-of-interest">People of interest</a>
+                    <Link to="/">Home</Link>
+                    <Link to="/people-of-interest">People of interest</Link>
+                    <Link to="/missions">Missions</Link>
                 </div>
             </div>
 

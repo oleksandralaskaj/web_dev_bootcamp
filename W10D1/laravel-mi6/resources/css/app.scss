@@ -1,9 +1,9 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Noto+Serif+Display:wght@200;400;700&display=swap');
 
 html {
     font-family: 'Noto Serif Display', serif;
 }
+
 body {
     margin: 0;
 }
@@ -97,16 +97,30 @@ body > div {
 }
 
 .select-filter {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 16px;
 
     .status-filter__status_selected {
-        background-color: #80fcf6;
+        background-color: #80fcf6
     }
-    button {
-        background: #edfffe;
-        color: #2B5554;
-        border: 0;
-        margin: 8px;
-        padding: 1rem;
-        border-radius: 16px;
+}
+
+.person-in-list {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin: 1rem 0;
+    img {
+        height: 100px;
     }
+}
+
+
+button {
+    background: #edfffe;
+    color: #2B5554;
+    border: 0;
+    margin: 8px;
+    padding: 1rem;
+    border-radius: 16px;
 }

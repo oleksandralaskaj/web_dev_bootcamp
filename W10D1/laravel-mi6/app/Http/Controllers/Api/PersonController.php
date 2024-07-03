@@ -11,7 +11,7 @@ class PersonController extends Controller
     public function index(Request $r)
     {
         $status = $r->query('status');
-        $people_query = Person::with("alias", 'image', "status")->limit(50);
+        $people_query = Person::with("aliases", 'image', "status")->limit(50);
         if ($status) {
             return $people_query->where("status_id", $status)->get();
         }
@@ -20,6 +20,6 @@ class PersonController extends Controller
 
     public function show($person_id)
     {
-        return Person::with("alias", 'image', "status")->findOrFail($person_id);
+        return Person::with("aliases", 'image', "status")->findOrFail($person_id);
     }
 }

@@ -2,10 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('main');
-});
+Route::view('/{path?}', 'main')->where('path', '.*'); // if main.blade.php renders the React app
 
-Route::get('/people-of-interest', function () {
-    return view('main');
-});
+

@@ -20,13 +20,14 @@ export const PeopleList = ({handler}) => {
         <div>
             <StatusFilter selectedStatus={selectedStatus} handler={setSelectedStatus}/>
         </div>
-        <ul>
+        <ol>
             {
-                people.map((person) => <li key={person.id}>
+                people.map((person) => <li key={person.id} className='person-in-list'>
+                    <img src={"/images/" + person.image.path} alt="agent"/>
                     <p>{person.name}</p>
                     <button onClick={() => handler(person.id)}>Detail</button>
                 </li>)
             }
-        </ul>
+        </ol>
     </>)
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import {useEffect, useState} from "react";
-import {PeopleList} from "./PeopleList.jsx";
-import {PersonDetail} from "./PersonDetail.jsx";
+import {PeopleList} from "../components/PeopleList.jsx";
+import {PersonDetail} from "../components/PersonDetail.jsx";
 
 
 export const People = () => {
