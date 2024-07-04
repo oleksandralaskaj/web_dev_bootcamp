@@ -1,35 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import {useEffect, useState} from 'react'
+
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [array, setArray] = useState([])
+    const createNumbers = () => {
+        const numbers = [];
+        for (let number = 1; number <= 100; number++) {
+            numbers.push(number)
+        }
+        setArray(numbers)
+    }
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    const fizzbuzz = (number) => {
+        if (number % 3 === 0 && number % 5 === 0) {
+            return 'FizzBuzz'
+        } else if (number % 3 === 0) {
+            return 'Fizz'
+        } else if (number % 5 === 0) {
+            return 'Buzz'
+        }
+        return number
+    }
+    useEffect(() => {
+        createNumbers()
+    }, []);
+
+
+    useEffect(() => {
+        console.log(array.map((number) => fizzbuzz(number)).join(', '))
+    }, []);
+
+
+    if (!array.length) return null
+
+    return (
+        <>
+            {array.map((number) => fizzbuzz(number)).join(', ')}
+        </>
+    )
 }
 
 export default App
