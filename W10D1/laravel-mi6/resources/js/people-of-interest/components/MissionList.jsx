@@ -12,7 +12,12 @@ export const MissionList = ({handler}) => {
         } catch (error) {
             console.error(error.message)
         }
+    }
 
+    const sendMail = async (missionId) => {
+        const res = await axios.post('api/missions/send-details', {
+            mission_id: missionId
+        })
     }
 
     useEffect(() => {
@@ -29,6 +34,7 @@ export const MissionList = ({handler}) => {
                     <p>Conducted in: {mission.year}</p>
                     <p>Outcome: {mission.outcome}</p>
                     <button onClick={() => handler(mission.id)}>Edit mission</button>
+                    <button onClick={() => sendMail(mission.id)}>Send by mail</button>
                 </li>)}
             </ol>
         </>

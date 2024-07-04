@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\MissionDetailMail;
 use App\Models\Mission;
 use App\Models\Person;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+
 
 class MissionController extends Controller
 {
@@ -92,6 +95,29 @@ class MissionController extends Controller
         return [
             'status' => 'success',
             'message' => 'Person has been removed from mission'
+        ];
+    }
+
+    public function sendDetailsByMail (Request $request)
+    {
+        $mission_id= $request->input('mission_id');
+        $user = auth()->user();
+
+        $mission = Mission::find($mission_id);
+
+        if (!$mission) {
+            return [
+                'status' => 'fail',
+                'message' => 'Mission with the id ' . $mission_id . ' does not exist'
+            ];
+        }
+
+        Mail::to($user->email)
+            ->send(new MissionDetailMail($mission));
+
+        return [
+            'status' => 'success',
+            'message' => 'Email was sent successfully'
         ];
     }
 }

@@ -32,3 +32,7 @@ Route::post('/missions/assign-person', [MissionController::class, 'assignPerson'
 
 Route::post('/missions/unassign-person', [MissionController::class, 'unAssignPerson'])->name('api.unassign-person');
 
+Route::post('/missions/send-details', [MissionController::class, 'sendDetailsByMail'])->name('api.send-details');
+
+
+
