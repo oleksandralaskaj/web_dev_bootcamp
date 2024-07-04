@@ -1,10 +1,13 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {Home} from "../pages/Home.jsx";
 import {People} from "../pages/People.jsx";
 import {Link} from "react-router-dom";
+import {UserContext} from "../context/UserContext.jsx";
+import {Logout} from "../pages/Logout.jsx";
 
 export const Navigation = ({handler}) => {
     const [collapsed, setCollapsed] = useState(false)
+    const {user} = useContext(UserContext)
 
     return (
         <nav className={"left-menu" + (collapsed ? " left-menu_hidden" : "")}>
@@ -20,8 +23,18 @@ export const Navigation = ({handler}) => {
 
                 <div className="left-menu__links">
                     <Link to="/">Home</Link>
-                    <Link to="/people-of-interest">People of interest</Link>
-                    <Link to="/missions">Missions</Link>
+                    {user ?
+                        <>
+                            <Link to="/people-of-interest">People of interest</Link>
+                            <Link to="/missions">Missions</Link>
+                            <Logout/>
+                        </> :
+                        <>
+                            <Link to="/register">Register</Link>
+                            <Link to="/login">Login</Link>
+                        </>
+                    }
+
                 </div>
             </div>
 

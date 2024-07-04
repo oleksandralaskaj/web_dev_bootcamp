@@ -1,8 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 //no need for /api
+Route::middleware('auth')->get('/user', function (Request $r) {
+    return $r->user();
+});
 
 // list of employees and their detail
 Route::get('/people', [\App\Http\Controllers\Api\PersonController::class, 'index'])->name('api.people');
