@@ -31,10 +31,12 @@ export const UserContextProvider = ({children}: { children: ReactNode }) => {
         } catch (error) {
             setUser(null)
         }
+
+        useEffect(() => {
+            getUser()
+        }, [])
     }
-    useEffect(() => {
-        getUser()
-    }, [])
+
 
     return (
         <UserContext.Provider value={{user, getUser}}>
@@ -43,6 +45,6 @@ export const UserContextProvider = ({children}: { children: ReactNode }) => {
     )
 }
 
-export const useThemeContext = () => {
+export const useUserContext = () => {
     return useContext(UserContext)
 }
