@@ -1,6 +1,6 @@
 
 
-run while in project folder:
+run while in project folder, that has to empty:
 composer create-project --prefer-dist laravel/laravel .
 ------
 sudo chmod -R 0777 bootstrap
