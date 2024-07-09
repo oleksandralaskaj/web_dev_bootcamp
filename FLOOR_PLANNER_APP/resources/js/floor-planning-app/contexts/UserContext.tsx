@@ -1,4 +1,4 @@
-import React, {createContext, ReactNode, useContext, useEffect, useState} from 'react';
+import React, {createContext, FC, PropsWithChildren, ReactNode, useContext, useEffect, useState} from 'react';
 import axios from "axios";
 
 interface User {
@@ -17,29 +17,36 @@ interface User {
 
 interface UserContextType {
     user: User,
-    getUser: () => {}
+    isLoading: boolean,
+    setUser: (user: User) => {},
+    getUser: () => Promise<void>
 }
 
 const UserContext = createContext<UserContextType>(null);
 
-export const UserContextProvider = ({children}: { children: ReactNode }) => {
-    const [user, setUser]: { UserContextType } = useState(null)
+export const UserContextProvider: FC<{children: ReactNode}> = ({children}) => {
+    console.log('rerender')
+    const [user, setUser] = useState<User>(null)
+    const [isLoading, setIsLoading] = useState(false)
+    console.log('user from context', user)
     const getUser = async (): Promise<void> => {
         try {
+            setIsLoading(true)
             const res = await axios.get('api/user')
             setUser(res.data)
         } catch (error) {
             setUser(null)
+        } finally {
+            setIsLoading(false)
         }
-
-        useEffect(() => {
-            getUser()
-        }, [])
     }
 
+    useEffect(() => {
+        getUser()
+    }, [])
 
     return (
-        <UserContext.Provider value={{user, getUser}}>
+        <UserContext.Provider value={{user, isLoading, setUser, getUser}}>
             {children}
         </UserContext.Provider>
     )

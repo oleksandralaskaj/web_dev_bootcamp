@@ -1,10 +1,22 @@
-import React from 'react';
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import {UserContextProvider} from "./contexts/UserContext";
+import React, {FC, PropsWithChildren, ReactNode, useEffect} from 'react';
+import {createBrowserRouter, Navigate, RouterProvider, useLocation} from "react-router-dom";
+import {UserContextProvider, useUserContext} from "./contexts/UserContext";
 import {Layout} from "./pages/Layout";
 import {Register} from "./pages/Register";
 import {Home} from "./pages/Home";
 import {Login} from "./pages/Login";
+
+const RequireAuth: FC<PropsWithChildren> = ({children}: { children }) => {
+    const {isLoading, user} = useUserContext()
+
+    if (isLoading) {
+        return <p>loading</p>
+    }
+    if (!user) {
+        return <Navigate to="/login"/>
+    }
+    return children
+}
 
 const router = createBrowserRouter([
     {
@@ -24,7 +36,10 @@ const router = createBrowserRouter([
             },
             {
                 path: "/planner",
-                element: <p>planner page</p>
+                element:
+                    <RequireAuth>
+                        <p>planner</p>
+                    </RequireAuth>
             }
         ]
     },

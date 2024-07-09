@@ -1,7 +1,8 @@
-import React, {useState, useEffect, useContext} from 'react';
-import {useUserContext} from "../contexts/UserContext.jsx";
+import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import {useUserContext} from "../contexts/UserContext";
+
 
 export function Login(props) {
     const {getUser} = useUserContext();
@@ -21,25 +22,28 @@ export function Login(props) {
             const response = await axios.post('/login', values);
             // get the (already JSON-parsed) response data
             const response_data = response.data;
+            console.log('login success ', response_data)
             getUser();
             navigate('/')
         } catch (error) {
             // if the response code is not 2xx (success)
-            switch (error.response.status) {
-                case 422:
-                    // handle validation errors here
-                    console.log('VALIDATION FAILED:', error.response.data.errors);
-                    break;
-                case 500:
-                    console.log('UNKNOWN ERROR', error.response.data);
-                    break;
-            }
+            // switch (error?.response?.status) {
+            //     case 422:
+            //         // handle validation errors here
+            //         console.log('VALIDATION FAILED:', error?.response.data.errors);
+            //         break;
+            //     case 500:
+            //         console.log('UNKNOWN ERROR', error?.response.data);
+            //         break;
+            // }
+            console.log('error ', error)
         }
     }
 
     const handleChange = (event) => {
         setValues(previous_values => {
-            return ({...previous_values,
+            return ({
+                ...previous_values,
                 [event.target.name]: event.target.value
             });
         });

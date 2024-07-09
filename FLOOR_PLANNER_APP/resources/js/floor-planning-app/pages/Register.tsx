@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {useUserContext} from "../contexts/UserContext.jsx";
+import {useUserContext} from "../contexts/UserContext";
 
 export function Register(props) {
     const {getUser} = useUserContext();
@@ -34,20 +34,20 @@ export function Register(props) {
             const response = await axios.post('/register', values);
             // get the (already JSON-parsed) response data
             const response_data = response.data;
-
             getUser();
             navigate('/');
         } catch (error) {
             // if the response code is not 2xx (success)
-            switch (error.response.status) {
-                case 422:
-                    // handle validation errors here
-                    console.log('VALIDATION FAILED:', error.response.data.errors);
-                    break;
-                case 500:
-                    console.log('UNKNOWN ERROR', error.response.data);
-                    break;
-            }
+            // switch (error.response.status) {
+            //     case 422:
+            //         // handle validation errors here
+            //         console.log('VALIDATION FAILED:', error.response.data.errors);
+            //         break;
+            //     case 500:
+            //         console.log('UNKNOWN ERROR', error.response.data);
+            //         break;
+            // }
+            console.log('register error ', error)
         }
     }
 
