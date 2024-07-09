@@ -1,5 +1,23 @@
+import React from 'react';
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import {Layout} from "./pages/Layout";
 
+const router = createBrowserRouter([
+    {
+        element: <Layout/>,
+        children: [
+            {
+                path: "/",
+                element: <p>home page</p>
+            },
+            {
+                path: "/planner",
+                element: <p>planner page</p>
+            }
+        ]
+    },
+]);
 
 export const App =()=> {
-    return 'hello form App.tsx'
+    return <RouterProvider router={router}/>
 }
