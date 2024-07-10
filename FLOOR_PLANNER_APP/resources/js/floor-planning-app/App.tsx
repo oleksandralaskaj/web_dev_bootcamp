@@ -1,5 +1,5 @@
-import React, {FC, PropsWithChildren, ReactNode, useEffect} from 'react';
-import {createBrowserRouter, Navigate, RouterProvider, useLocation} from "react-router-dom";
+import React, {FC, PropsWithChildren} from 'react';
+import {createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
 import {UserContextProvider, useUserContext} from "./contexts/UserContext";
 import {Layout} from "./pages/Layout";
 import {Register} from "./pages/Register";

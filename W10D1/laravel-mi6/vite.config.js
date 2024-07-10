@@ -5,10 +5,11 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
-                'resources/css/app.scss',
+                'resources/scss/app.scss',
                 'resources/js/people-of-interest.jsx',
             ],
             refresh: true,
         }),
     ],
 });
+

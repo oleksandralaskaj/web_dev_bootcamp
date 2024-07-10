@@ -25,10 +25,9 @@ interface UserContextType {
 const UserContext = createContext<UserContextType>(null);
 
 export const UserContextProvider: FC<{children: ReactNode}> = ({children}) => {
-    console.log('rerender')
     const [user, setUser] = useState<User>(null)
     const [isLoading, setIsLoading] = useState(false)
-    console.log('user from context', user)
+    console.log(user)
     const getUser = async (): Promise<void> => {
         try {
             setIsLoading(true)
