@@ -5,7 +5,7 @@ import {useUserContext} from "../contexts/UserContext";
 
 
 export function Login(props) {
-    const {getUser} = useUserContext();
+    const {user, getUser} = useUserContext();
     const navigate = useNavigate()
     const [values, setValues] = useState({
         email: '',
@@ -16,27 +16,16 @@ export function Login(props) {
 
         event.preventDefault();
 
-        // with axios
         try {
-            // make the AJAX request
             const response = await axios.post('/login', values);
-            // get the (already JSON-parsed) response data
             const response_data = response.data;
             console.log('login success ', response_data)
             getUser();
             navigate('/')
-        } catch (error) {
-            // if the response code is not 2xx (success)
-            // switch (error?.response?.status) {
-            //     case 422:
-            //         // handle validation errors here
-            //         console.log('VALIDATION FAILED:', error?.response.data.errors);
-            //         break;
-            //     case 500:
-            //         console.log('UNKNOWN ERROR', error?.response.data);
-            //         break;
-            // }
-            console.log('error ', error)
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                console.log('login error ', error)
+            }
         }
     }
 
@@ -47,6 +36,13 @@ export function Login(props) {
                 [event.target.name]: event.target.value
             });
         });
+    }
+
+    if (user) {
+        return <>
+            <p>You are already logged in, return home'</p>
+            <button onClick={()=> navigate('/')}>home</button>
+        </>
     }
 
     return (

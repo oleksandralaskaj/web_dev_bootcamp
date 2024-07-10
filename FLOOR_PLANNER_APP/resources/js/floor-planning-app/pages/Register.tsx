@@ -4,7 +4,7 @@ import {useNavigate} from 'react-router-dom';
 import {useUserContext} from "../contexts/UserContext";
 
 export function Register(props) {
-    const {getUser} = useUserContext();
+    const {user, getUser} = useUserContext();
     const navigate = useNavigate();
 
     const [values, setValues] = useState({
@@ -36,24 +36,24 @@ export function Register(props) {
             const response_data = response.data;
             getUser();
             navigate('/');
-        } catch (error) {
-            // if the response code is not 2xx (success)
-            // switch (error.response.status) {
-            //     case 422:
-            //         // handle validation errors here
-            //         console.log('VALIDATION FAILED:', error.response.data.errors);
-            //         break;
-            //     case 500:
-            //         console.log('UNKNOWN ERROR', error.response.data);
-            //         break;
-            // }
-            console.log('register error ', error)
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                console.log('register error ', error)
+            }
         }
     }
 
     useEffect(() => {
         console.log(values)
     }, [values])
+
+    if (user) {
+        return <>
+            <p>You are already logged in, return home'</p>
+            <button onClick={()=> navigate('/')}>home</button>
+        </>
+    }
+
     return (
         <form action="/register" method="post" onSubmit={handleSubmit}>
             <label htmlFor="username">User name</label> <br/>
