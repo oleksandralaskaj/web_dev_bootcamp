@@ -1,20 +1,8 @@
 @import "/resources/css/app.scss";
 
-.container {
-    background-color: $color-tertiary;
-    padding: 0.5rem 1rem;
-    border-radius: 0.35rem;
-
-    &:hover {
-        background-color: $color-tertiary-hover;
-    }
-
-    &:active {
-        background-color: $color-tertiary-active;
-    }
-}
-
 .link {
+    display: inline-block;
+    color: $color-primary;
     font: {
         family: "Lexend Deca", sans-serif;
         size: 1.2rem;
@@ -22,20 +10,11 @@
     };
     text-decoration: none;
 
-    &.regular {
-        color: $color-primary;
-
-        &:hover {
-            color: $color-primary-hover;
-        }
-
-        &:active {
-            color: $color-primary-active;
-        }
+    &:hover {
+        color: $color-primary-hover;
     }
 
-    &.button {
-        color: $color-secondary-text;
+    &:active {
+        color: $color-primary-active;
     }
 }
-

@@ -2,6 +2,9 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useUserContext} from "../contexts/UserContext";
+import {Form} from "../components/Form";
+import styles from "./Login.module.scss";
+import {Link} from "../components/Link";
 
 export function Register(props) {
     const {user, getUser} = useUserContext();
@@ -28,11 +31,8 @@ export function Register(props) {
     const handleSubmit = async (event) => {
 
         event.preventDefault();
-        // with axios
         try {
-            // make the AJAX request
             const response = await axios.post('/register', values);
-            // get the (already JSON-parsed) response data
             const response_data = response.data;
             getUser();
             navigate('/');
@@ -50,37 +50,21 @@ export function Register(props) {
     if (user) {
         return <>
             <p>You are already logged in, return home'</p>
-            <button onClick={()=> navigate('/')}>home</button>
+            <button onClick={() => navigate('/')}>home</button>
         </>
     }
 
-    return (
-        <form action="/register" method="post" onSubmit={handleSubmit}>
-            <label htmlFor="username">User name</label> <br/>
-            <input type="text" id='username' name="username" value={values.username} onChange={handleChange}/>
-            <br/>
+    return <div className={styles.container}>
+        <div className={styles.header}>
+            <h1 className={styles.title}>Register, dear newbie</h1>
+            <h2 className={styles.subtitle}>You've got your account already? Then, <Link to={'/login'}> sign in →</Link>
+            </h2>
+        </div>
+        <Form inputs={values}
+              action={'/register'}
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+              buttonText={'Register a new account'}/>
 
-            <label htmlFor="first_name">First name</label> <br/>
-            <input type="text" id='first_name' name="first_name" value={values.first_name} onChange={handleChange}/>
-            <br/>
-
-            <label htmlFor="surname">Surname</label> <br/>
-            <input type="text" id='surname' name="surname" value={values.surname} onChange={handleChange}/>
-            <br/>
-
-            <label htmlFor="email">Email</label> <br/>
-            <input type="email" id='email' name="email" value={values.email} onChange={handleChange}/> <br/>
-
-            <label htmlFor="password">Password</label> <br/>
-            <input type="password" id='password' name="password" value={values.password} onChange={handleChange}/> <br/>
-
-            <label htmlFor="password_confirmation">Password confirmation</label> <br/>
-            <input type="password" id='password_confirmation' name="password_confirmation"
-                   value={values.password_confirmation}
-                   onChange={handleChange}/> <br/>
-
-            <button>Register</button>
-
-        </form>
-    );
+    </div>
 }

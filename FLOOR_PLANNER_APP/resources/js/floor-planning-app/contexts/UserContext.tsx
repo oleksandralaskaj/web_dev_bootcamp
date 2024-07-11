@@ -27,7 +27,7 @@ const UserContext = createContext<UserContextType>(null);
 export const UserContextProvider: FC<{children: ReactNode}> = ({children}) => {
     const [user, setUser] = useState<User>(null)
     const [isLoading, setIsLoading] = useState(false)
-    console.log(user)
+    console.log('user in context now is', user)
     const getUser = async (): Promise<void> => {
         try {
             setIsLoading(true)

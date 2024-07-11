@@ -2,6 +2,10 @@ import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import {useUserContext} from "../contexts/UserContext";
+import {Form} from "../components/Form";
+import styles from "./Login.module.scss"
+import {Link} from "../components/Link";
+import {MoveRight} from "lucide-react";
 
 
 export function Login(props) {
@@ -41,21 +45,20 @@ export function Login(props) {
     if (user) {
         return <>
             <p>You are already logged in, return home'</p>
-            <button onClick={()=> navigate('/')}>home</button>
+            <button onClick={() => navigate('/')}>home</button>
         </>
     }
 
-    return (
-        //laravel knows what to do ones redirected to that route
-        <form action="/login" method="post" onSubmit={handleSubmit}>
-
-            <label htmlFor="email">Email</label> <br/>
-            <input type="email" id='email' name="email" value={values.email} onChange={handleChange}/> <br/>
-
-            <label htmlFor="password">Password</label> <br/>
-            <input type="password" id='password' name="password" value={values.password} onChange={handleChange}/> <br/>
-
-            <button>Login</button>
-        </form>
-    );
+    return <div className={styles.container}>
+        <div className={styles.header}>
+            <h1 className={styles.title}>Sign in, if you know it here</h1>
+            <h2 className={styles.subtitle}>If you don't have an account jet, <Link to={'/register'}> register →</Link>
+            </h2>
+        </div>
+        <Form inputs={values}
+              action={'/login'}
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+              buttonText={'Login'}/>
+    </div>
 }

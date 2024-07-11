@@ -2,8 +2,7 @@ import React from 'react';
 import axios from "axios";
 import {useUserContext} from "../contexts/UserContext.jsx";
 import {useNavigate} from "react-router-dom";
-import styles from './Link.module.scss'
-import {Link} from "./Link";
+import {Button} from "./Button";
 
 export const LogoutBtn = () => {
     const {getUser} = useUserContext()
@@ -19,5 +18,6 @@ export const LogoutBtn = () => {
         }
     }
 
-    return <div onClick={handleLogout}><Link to={'/'} type={'button'}>Logout</Link></div>
+    return <Button onClickHandler={handleLogout} type='passive'>Logout</Button>
 }
+

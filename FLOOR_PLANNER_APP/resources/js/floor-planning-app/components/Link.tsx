@@ -4,11 +4,8 @@ import styles from './Link.module.scss'
 
 type Props = PropsWithChildren<{
     to: To;
-    type: 'button' | 'link'
 }>
 
-export const Link = ({to, children, type}: Props) => {
-    return <div className={type === 'button'? styles.container : ''}>
-        <ReactRouterLink to={to} className={`${styles.link} ${styles[type]}`}>{children}</ReactRouterLink>
-    </div>
+export const Link = ({to, children}: Props) => {
+    return <ReactRouterLink to={to} className={styles.link}>{children}</ReactRouterLink>
 }
