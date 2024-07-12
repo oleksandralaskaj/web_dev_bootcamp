@@ -1,7 +1,16 @@
-import React, {createContext, FC, PropsWithChildren, ReactNode, useContext, useEffect, useState} from 'react';
+import React, {
+    createContext,
+    FC,
+    PropsWithChildren,
+    ReactNode,
+    SetStateAction,
+    useContext,
+    useEffect,
+    useState
+} from 'react';
 import axios from "axios";
 
-interface User {
+type User = {
     id: number;
     username: string;
     first_name: string;
@@ -15,28 +24,27 @@ interface User {
     updated_at: string | null;
 }
 
-interface UserContextType {
+type UserContextType = {
     user: User,
-    isLoading: boolean,
-    setUser: (user: User) => {},
+    isLoaded: boolean,
+    setUser: (user: User | null) => {},
     getUser: () => Promise<void>
 }
 
-const UserContext = createContext<UserContextType>(null);
+const UserContext = createContext<UserContextType | null>(null);
 
-export const UserContextProvider: FC<{children: ReactNode}> = ({children}) => {
-    const [user, setUser] = useState<User>(null)
-    const [isLoading, setIsLoading] = useState(false)
+export const UserContextProvider: FC<{ children: ReactNode }> = ({children}) => {
+    const [user, setUser] = useState<User | null>(null)
+    const [isLoaded, setIsLoaded] = useState(false)
     console.log('user in context now is', user)
     const getUser = async (): Promise<void> => {
         try {
-            setIsLoading(true)
             const res = await axios.get('api/user')
             setUser(res.data)
         } catch (error) {
             setUser(null)
         } finally {
-            setIsLoading(false)
+            setIsLoaded(true)
         }
     }
 
@@ -45,7 +53,7 @@ export const UserContextProvider: FC<{children: ReactNode}> = ({children}) => {
     }, [])
 
     return (
-        <UserContext.Provider value={{user, isLoading, setUser, getUser}}>
+        <UserContext.Provider value={{user, isLoaded, setUser, getUser}}>
             {children}
         </UserContext.Provider>
     )

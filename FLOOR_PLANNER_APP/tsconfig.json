@@ -11,7 +11,8 @@
         "noImplicitAny": false,
         // Bypass raising errors on `any` type
         "jsx": "react",
-        "name": "typescript-plugin-css-modules"
+        "name": "typescript-plugin-css-modules",
+      "allowSyntheticDefaultImports": true
     },
     "include": [
         "resources/js/**/*",

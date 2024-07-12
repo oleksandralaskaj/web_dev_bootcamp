@@ -1,20 +1,26 @@
-import React, {FC, PropsWithChildren} from 'react';
+import React, {FC,} from 'react';
 import {createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
 import {UserContextProvider, useUserContext} from "./contexts/UserContext";
 import {Layout} from "./pages/Layout";
 import {Register} from "./pages/Register";
 import {Home} from "./pages/Home";
 import {Login} from "./pages/Login";
+import {Planner} from "./pages/Planner";
 
-const RequireAuth: FC<PropsWithChildren> = ({children}: { children }) => {
-    const {isLoading, user} = useUserContext()
+type Props = {
+    children?: React.ReactNode
+};
+const RequireAuth: FC<Props> = ({children}) => {
+    const {isLoaded, user} = useUserContext()
 
-    if (isLoading) {
+    if (!isLoaded) {
         return <p>loading</p>
     }
-    if (!user) {
+
+    if (isLoaded && !user) {
         return <Navigate to="/login"/>
     }
+
     return children
 }
 
@@ -38,7 +44,7 @@ const router = createBrowserRouter([
                 path: "/planner",
                 element:
                     <RequireAuth>
-                        <p>planner</p>
+                        <Planner/>
                     </RequireAuth>
             }
         ]
