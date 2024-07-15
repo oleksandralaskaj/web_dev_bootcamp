@@ -1,7 +1,10 @@
-import React, {ReactNode, SetStateAction, useEffect, useRef, useState} from "react";
-import {Stage, Layer, Text, Rect, Transformer} from 'react-konva';
+import React, {useEffect, useState} from "react";
+import {Stage, Layer} from 'react-konva';
 import styles from './Planner.module.scss'
 import {Rectangle} from "../components/Rectangle";
+import {GridLayer} from "../components/GridLayer";
+
+export const GRIDCELLSIZE = 50;
 
 type Attrs = {
     id: number,
@@ -10,14 +13,14 @@ type Attrs = {
     height: number,
     width: number,
     fill: string,
-    rotation: number
+    rotation: number,
+    truefalse: boolean
 }
 
 const canvasSize = {
     height: window.innerHeight,
     width: window.innerWidth - 132,
 }
-
 
 export const Planner = () => {
     const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -29,7 +32,8 @@ export const Planner = () => {
         height: 0,
         width: 0,
         fill: '',
-        rotation: 0
+        rotation: 0,
+        truefalse: true
     })
 
     const updateAttrs = (object: Attrs) => {
@@ -40,22 +44,27 @@ export const Planner = () => {
             height: Math.floor(object.height),
             width: Math.floor(object.width),
             fill: object.fill,
-            rotation: object.rotation
+            rotation: object.rotation,
+            truefalse: object.truefalse
         });
     }
 
-    const initialShapeArray = [
+    const initialShapeArray: {width:number, height: number, fill: string, rotation:number, id? : string}[] = [
         {
+            id: 1,
             width: 100,
             height: 100,
             fill: 'blue',
-            rotation: 0
+            rotation: 0,
+            truefalse: true
         },
         {
+            id: 2,
             width: 1000,
             height: 100,
             fill: 'grey',
-            rotation: 0
+            rotation: 0,
+            truefalse: true
         },
     ];
 
@@ -74,12 +83,15 @@ export const Planner = () => {
     const updateCanvasData = (newData) => {
         const newShapeArray = shapeArray.slice();
         const indexOfShapeToBeUpdated = shapeArray.findIndex((oldData) => oldData.id === newData.id);
-        newShapeArray[indexOfShapeToBeUpdated] = newData;
+            newShapeArray[indexOfShapeToBeUpdated] = newData
         setSelectedNodeAttr(newData)
-        setShapeArray(newShapeArray);
+        setShapeArray(newShapeArray)
     }
 
 
+    useEffect(() => {
+        console.log('shape array has been updated', shapeArray)
+    }, [shapeArray]);
 
     return (
         <div className={styles.container} id={'workspace'}>
@@ -104,11 +116,13 @@ export const Planner = () => {
                                 setSelectedId={setSelectedId}
                                 providedAttrs={shapeData}
                                 updateCanvasData={updateCanvasData}
+                                setShapeArray={setShapeArray}
                             />
                         )
                     })
                     }
                 </Layer>
+                <GridLayer/>
             </Stage>
         </div>
     )

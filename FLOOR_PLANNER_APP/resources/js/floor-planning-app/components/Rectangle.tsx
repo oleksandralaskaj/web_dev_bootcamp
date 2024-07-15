@@ -1,14 +1,21 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {ReactNode, RefObject, useEffect, useRef, useState} from "react";
 import {Rect, Transformer} from "react-konva";
+import {GRIDCELLSIZE} from '../pages/Planner'
 
 type Attrs = {
-    id: string,
+    id: number,
     x: number,
     y: number,
     height: number,
     width: number,
     fill: string,
     rotation: number
+    truefalse: boolean
+}
+
+const initialCoordinates = {
+    x: 50,
+    y: 50
 }
 
 const makeid = () => {
@@ -20,28 +27,26 @@ const makeid = () => {
     return result;
 }
 
-const initialCoordinates = {
-    x: 50,
-    y: 50
-}
-
-export const Rectangle = ({providedAttrs, selectedNodeId, setSelectedId, updateCanvasData}) => {
+export const Rectangle = ({providedAttrs, selectedNodeId, setSelectedId, updateCanvasData, setShapeArray}) => {
     const [attrs, setAttrs] = useState<Attrs>({
-        id: makeid(),
+        // id: makeid(),
+        id: providedAttrs.id,
         x: initialCoordinates.x,
         y: initialCoordinates.y,
         height: providedAttrs.height,
         width: providedAttrs.width,
         rotation: providedAttrs.rotation,
-        fill: providedAttrs.fill
+        fill: providedAttrs.fill,
+        truefalse: providedAttrs.truefalse
     })
+
 
     const isSelected = () => {
         return selectedNodeId === attrs.id
     }
 
-    const shapeRef = useRef<object>({});
-    const trRef = useRef<object>({});
+    const shapeRef = useRef<HTMLCanvasElement | null>(null);
+    const trRef = useRef<HTMLCanvasElement | null>(null);
 
     useEffect(() => {
         if (isSelected()) {
@@ -54,6 +59,8 @@ export const Rectangle = ({providedAttrs, selectedNodeId, setSelectedId, updateC
     useEffect(() => {
         updateCanvasData(attrs)
     }, [attrs]);
+
+
     return (
         <>
             <Rect
@@ -67,8 +74,9 @@ export const Rectangle = ({providedAttrs, selectedNodeId, setSelectedId, updateC
                 onDragEnd={(e) => {
                     setAttrs({
                         ...attrs,
-                        x: Math.floor(e.target.x()),
-                        y: Math.floor(e.target.y()),
+                        x: Math.round(e.target.x() / GRIDCELLSIZE) * GRIDCELLSIZE,
+                        y: Math.round(e.target.y() / GRIDCELLSIZE) * GRIDCELLSIZE,
+                        truefalse: !attrs.truefalse
                     });
                 }}
                 onTransformEnd={(e) => {

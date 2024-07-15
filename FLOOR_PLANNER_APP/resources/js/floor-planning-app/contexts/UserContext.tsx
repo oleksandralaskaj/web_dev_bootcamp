@@ -1,5 +1,5 @@
 import React, {
-    createContext,
+    createContext, Dispatch,
     FC,
     PropsWithChildren,
     ReactNode,
@@ -25,9 +25,9 @@ type User = {
 }
 
 type UserContextType = {
-    user: User,
+    user: User | null,
     isLoaded: boolean,
-    setUser: (user: User | null) => {},
+    setUser: Dispatch<SetStateAction<User | null>>,
     getUser: () => Promise<void>
 }
 
