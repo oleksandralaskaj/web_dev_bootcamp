@@ -45,8 +45,8 @@ export const Rectangle = ({providedAttrs, selectedNodeId, setSelectedId, updateC
         return selectedNodeId === attrs.id
     }
 
-    const shapeRef = useRef<HTMLCanvasElement | null>(null);
-    const trRef = useRef<HTMLCanvasElement | null>(null);
+    const shapeRef = useRef<HTMLDataElement | null>(null);
+    const trRef = useRef<HTMLDataElement | null>(null);
 
     useEffect(() => {
         if (isSelected()) {
@@ -95,12 +95,12 @@ export const Rectangle = ({providedAttrs, selectedNodeId, setSelectedId, updateC
                     node.scaleY(1);
                     setAttrs({
                         ...attrs,
-                        // x: Math.floor(node.x()),
-                        // y: Math.floor(node.y()),
+                        x: Math.round(e.target.x() / GRIDCELLSIZE) * GRIDCELLSIZE,
+                        y: Math.round(e.target.y() / GRIDCELLSIZE) * GRIDCELLSIZE,
                         // set minimal value
-                        width: Math.max(5, Math.floor(node.width() * scaleX)),
-                        height: Math.max(5, Math.floor(node.height() * scaleY)),
-                        rotation: Math.floor(node.rotation() * scaleY)
+                        width: Math.max(5, Math.round((node.width() * scaleX)/ GRIDCELLSIZE)* GRIDCELLSIZE),
+                        height: Math.max(5, Math.round((node.height() * scaleY)/ GRIDCELLSIZE)* GRIDCELLSIZE),
+                        rotation: Math.ceil(node.rotation() * scaleY)
                     })
                 }
                 }
@@ -113,14 +113,9 @@ export const Rectangle = ({providedAttrs, selectedNodeId, setSelectedId, updateC
                     rotationSnaps={[0, 90, 180, 270]}
                     boundBoxFunc={(oldBox, newBox) => {
                         // sets minimum height and width of a node
-                        if (Math.abs(newBox.width) < 10 || Math.abs(newBox.height) < 10) {
+                        if (Math.abs(newBox.width) < 5 || Math.abs(newBox.height) < 5) {
                             return oldBox;
                         }
-                        const resizedBox:Box = newBox
-                        resizedBox.height = Math.round(newBox.height / GRIDCELLSIZE) * GRIDCELLSIZE
-                        resizedBox.width = Math.round(newBox.width / GRIDCELLSIZE) * GRIDCELLSIZE
-                        newBox = resizedBox
-                        console.log('new box', newBox)
                         return newBox;
                     }}
                 />

@@ -1,12 +1,11 @@
 import React from "react";
 import {Layer, Line} from "react-konva";
-// import {GRIDCELLSIZE} from '../pages/Planner'
-
-const width = window.innerWidth;
-const height = window.innerHeight;
-const padding = 50;
+import {GRIDCELLSIZE} from '../pages/Planner'
 
 export const GridLayer=()=> {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const padding = GRIDCELLSIZE;
     const vertLinesPoints :number[][] = []
     const horizLinesPoints: number[][] = []
 
