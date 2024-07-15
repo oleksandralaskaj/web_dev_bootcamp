@@ -3,6 +3,8 @@ import {Stage, Layer} from 'react-konva';
 import styles from './Planner.module.scss'
 import {Rectangle} from "../components/Rectangle";
 import {GridLayer} from "../components/GridLayer";
+import {TestPrintFunction} from "../components/TestPrintFunction";
+import ReactDOMServer from 'react-dom/server';
 
 export const GRIDCELLSIZE = 50;
 
@@ -14,7 +16,6 @@ type Attrs = {
     width: number,
     fill: string,
     rotation: number,
-    truefalse: boolean
 }
 
 const canvasSize = {
@@ -33,7 +34,6 @@ export const Planner = () => {
         width: 0,
         fill: '',
         rotation: 0,
-        truefalse: true
     })
 
     const updateAttrs = (object: Attrs) => {
@@ -45,18 +45,16 @@ export const Planner = () => {
             width: Math.floor(object.width),
             fill: object.fill,
             rotation: object.rotation,
-            truefalse: object.truefalse
         });
     }
 
-    const initialShapeArray: {width:number, height: number, fill: string, rotation:number, id? : string}[] = [
+    const initialShapeArray: {width:number, height: number, fill: string, rotation:number, id: number}[] = [
         {
             id: 1,
             width: 100,
             height: 100,
             fill: 'blue',
             rotation: 0,
-            truefalse: true
         },
         {
             id: 2,
@@ -64,7 +62,6 @@ export const Planner = () => {
             height: 100,
             fill: 'grey',
             rotation: 0,
-            truefalse: true
         },
     ];
 
@@ -87,11 +84,6 @@ export const Planner = () => {
         setSelectedNodeAttr(newData)
         setShapeArray(newShapeArray)
     }
-
-
-    useEffect(() => {
-        console.log('shape array has been updated', shapeArray)
-    }, [shapeArray]);
 
     return (
         <div className={styles.container} id={'workspace'}>

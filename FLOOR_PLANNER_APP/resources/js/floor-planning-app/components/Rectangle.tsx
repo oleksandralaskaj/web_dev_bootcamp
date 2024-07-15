@@ -1,6 +1,8 @@
 import React, {ReactNode, RefObject, useEffect, useRef, useState} from "react";
 import {Rect, Transformer} from "react-konva";
 import {GRIDCELLSIZE} from '../pages/Planner'
+import {Box} from "konva/lib/shapes/Transformer";
+
 
 type Attrs = {
     id: number,
@@ -10,7 +12,6 @@ type Attrs = {
     width: number,
     fill: string,
     rotation: number
-    truefalse: boolean
 }
 
 const initialCoordinates = {
@@ -37,7 +38,6 @@ export const Rectangle = ({providedAttrs, selectedNodeId, setSelectedId, updateC
         width: providedAttrs.width,
         rotation: providedAttrs.rotation,
         fill: providedAttrs.fill,
-        truefalse: providedAttrs.truefalse
     })
 
 
@@ -58,6 +58,7 @@ export const Rectangle = ({providedAttrs, selectedNodeId, setSelectedId, updateC
 
     useEffect(() => {
         updateCanvasData(attrs)
+        console.log('new state of attrs.truefalse', attrs.truefalse)
     }, [attrs]);
 
 
@@ -72,12 +73,15 @@ export const Rectangle = ({providedAttrs, selectedNodeId, setSelectedId, updateC
                 {...attrs}
                 draggable
                 onDragEnd={(e) => {
+                    e.target.to({
+                        x: Math.round(e.target.x() / GRIDCELLSIZE) * GRIDCELLSIZE,
+                        y: Math.round(e.target.y() / GRIDCELLSIZE) * GRIDCELLSIZE,
+                    })
                     setAttrs({
                         ...attrs,
                         x: Math.round(e.target.x() / GRIDCELLSIZE) * GRIDCELLSIZE,
                         y: Math.round(e.target.y() / GRIDCELLSIZE) * GRIDCELLSIZE,
-                        truefalse: !attrs.truefalse
-                    });
+                    })
                 }}
                 onTransformEnd={(e) => {
                     // transformer is changing scale of the node
@@ -91,8 +95,8 @@ export const Rectangle = ({providedAttrs, selectedNodeId, setSelectedId, updateC
                     node.scaleY(1);
                     setAttrs({
                         ...attrs,
-                        x: Math.floor(node.x()),
-                        y: Math.floor(node.y()),
+                        // x: Math.floor(node.x()),
+                        // y: Math.floor(node.y()),
                         // set minimal value
                         width: Math.max(5, Math.floor(node.width() * scaleX)),
                         height: Math.max(5, Math.floor(node.height() * scaleY)),
@@ -112,6 +116,11 @@ export const Rectangle = ({providedAttrs, selectedNodeId, setSelectedId, updateC
                         if (Math.abs(newBox.width) < 10 || Math.abs(newBox.height) < 10) {
                             return oldBox;
                         }
+                        const resizedBox:Box = newBox
+                        resizedBox.height = Math.round(newBox.height / GRIDCELLSIZE) * GRIDCELLSIZE
+                        resizedBox.width = Math.round(newBox.width / GRIDCELLSIZE) * GRIDCELLSIZE
+                        newBox = resizedBox
+                        console.log('new box', newBox)
                         return newBox;
                     }}
                 />
