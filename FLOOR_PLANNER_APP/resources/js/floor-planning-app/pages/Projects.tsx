@@ -35,10 +35,9 @@ export const Projects = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post(`/api/projects/store`, {
+            const response = await axios.post(`api/projects/store`, {
                 title: title,
                 user_id: user.id,
-                data: []
             });
             console.log('new project is created', response.data)
         } catch (error: unknown) {
@@ -61,7 +60,7 @@ export const Projects = () => {
     return <>
         {projects ? content : <p>You have no projects create yet, so let's with creating one</p>}
         <Form inputs={{title: title}}
-              action={`/api/projects/store`}
+              action={`api/projects/store`}
               handleChange={handleChange}
               handleSubmit={handleSubmit}
               buttonText={'Create new project'}/>
