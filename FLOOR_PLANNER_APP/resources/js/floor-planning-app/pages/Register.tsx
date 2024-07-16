@@ -28,7 +28,7 @@ export function Register(props) {
         });
     }
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: React.FormEvent) => {
 
         event.preventDefault();
         try {

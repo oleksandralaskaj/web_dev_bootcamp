@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ProjectController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -11,3 +12,9 @@ Route::get('/', function (Request $request) {
 Route::middleware('auth')->get('/user', function (Request $r) {
     return $r->user();
 });
+
+// get projects of user
+Route::get('/projects', [ProjectController::class, 'getProjectsOfUser'])->name('api.user-projects');
+
+//get the project
+Route::get('/projects/{project_id}', [ProjectController::class, 'show'])->name('api.project');
