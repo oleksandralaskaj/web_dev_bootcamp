@@ -1,12 +1,17 @@
 
 .container {
-    background-color: #e8ecf1;
+    background-color: #f9f9f9;
     display: flex;
     height: 100%;
 
     .info {
+        font: {
+            family: "Lexend Deca", sans-serif;
+            size: 1.2rem;
+            weight: 300;
+        }
         background-color: #d8e8f5;
-        padding: 2rem;
+        padding: 1rem;
         width: 100px;
     }
 }

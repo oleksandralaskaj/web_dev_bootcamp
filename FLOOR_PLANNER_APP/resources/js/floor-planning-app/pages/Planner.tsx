@@ -1,15 +1,15 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Stage, Layer} from 'react-konva';
 import styles from './Planner.module.scss'
 import {Rectangle} from "../components/Rectangle";
 import {GridLayer} from "../components/GridLayer";
-import {TestPrintFunction} from "../components/TestPrintFunction";
-import ReactDOMServer from 'react-dom/server';
+import {DownloadImage} from "../components/DownloadImage";
+import Konva from "konva";
 
-export const GRIDCELLSIZE = 50;
+export const GRIDCELLSIZE = 10;
 
-type Attrs = {
-    id: number,
+export type Attrs = {
+    id: string,
     x: number,
     y: number,
     height: number,
@@ -23,50 +23,40 @@ const canvasSize = {
     width: window.innerWidth - 132,
 }
 
+const initialCoordinates = {
+    x: 50,
+    y: 50
+}
 export const Planner = () => {
     const [selectedId, setSelectedId] = useState<string | null>(null);
 
-    const [selectedNodeAttrs, setSelectedNodeAttr] = useState<Attrs | null>({
-        id: 0,
-        x: 0,
-        y: 0,
-        height: 0,
-        width: 0,
-        fill: '',
-        rotation: 0,
-    })
+    //data for illustration of selected node
+    const [selectedNodeAttrs, setSelectedNodeAttr] = useState<Attrs | null>()
 
-    const updateAttrs = (object: Attrs) => {
-        setSelectedNodeAttr({
-            id: object.id,
-            x: Math.floor(object.x),
-            y: Math.floor(object.y),
-            height: Math.floor(object.height),
-            width: Math.floor(object.width),
-            fill: object.fill,
-            rotation: object.rotation,
-        });
+    const updateSelectedNodeAttrs = () => {
+        const shape = shapeArray.find(item => item.id === selectedId)
+        setSelectedNodeAttr(shape);
     }
 
-    const initialShapeArray: {width:number, height: number, fill: string, rotation:number, id: number}[] = [
-        {
-            id: 1,
-            width: 100,
-            height: 100,
-            fill: 'blue',
-            rotation: 0,
-        },
-        {
-            id: 2,
-            width: 1000,
-            height: 100,
-            fill: 'grey',
-            rotation: 0,
-        },
-    ];
+    useEffect(() => {
+        updateSelectedNodeAttrs()
+    }, [selectedId]);
 
+    const makeid = () => {
+        let result = '';
+        if (self.crypto.randomUUID) {
+            result = self.crypto.randomUUID()
+        } else {
+            //dev mode purposes
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            for (let i = 0; i < 6; i++) {
+                result += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+        }
+        return result;
+    }
+    // deselect when clicked on empty area
     const checkDeselect = (e) => {
-        // deselect when clicked on empty area
         const clickedOnEmpty = e.target === e.target.getStage();
         if (clickedOnEmpty) {
             setSelectedId(null);
@@ -74,16 +64,52 @@ export const Planner = () => {
             console.log('clicked outside of shape')
         }
     };
+    const initialShapeArray: Attrs[] = [
+        {
+            id: makeid(),
+            width: 100,
+            height: 100,
+            x: initialCoordinates.x,
+            y: initialCoordinates.y,
+            fill: 'blue',
+            rotation: 0,
+        },
+        {
+            id: makeid(),
+            width: 1000,
+            height: 100,
+            x: initialCoordinates.x,
+            y: initialCoordinates.y,
+            fill: 'grey',
+            rotation: 0,
+        },
+    ];
 
+    //state containing data all elements of canvas
     const [shapeArray, setShapeArray] = useState(initialShapeArray);
 
-    const updateCanvasData = (newData) => {
+    const updateCanvasData = (newData: Attrs) => {
         const newShapeArray = shapeArray.slice();
         const indexOfShapeToBeUpdated = shapeArray.findIndex((oldData) => oldData.id === newData.id);
-            newShapeArray[indexOfShapeToBeUpdated] = newData
-        setSelectedNodeAttr(newData)
+        newShapeArray[indexOfShapeToBeUpdated] = newData
         setShapeArray(newShapeArray)
     }
+
+    const content = shapeArray.map((shapeData, i) => {
+        return (
+            <Rectangle
+                key={i}
+                selectedNodeId={selectedId}
+                setSelectedId={setSelectedId}
+                providedAttrs={shapeData}
+                updateCanvasData={updateCanvasData}
+                setShapeArray={setShapeArray}
+            />
+        )
+    })
+
+    const layerRef: React.RefObject<Konva.Layer> = useRef(null);
+    const linkToDownloadImage = layerRef.current?.toDataURL()
 
     return (
         <div className={styles.container} id={'workspace'}>
@@ -96,23 +122,11 @@ export const Planner = () => {
                         <p>W: {selectedNodeAttrs.width}</p></> :
                     ''
                 }
-
+                {linkToDownloadImage && <DownloadImage href={linkToDownloadImage}/>}
             </div>
             <Stage height={canvasSize.height} width={canvasSize.width} onMouseDown={checkDeselect}>
-                <Layer>
-                    {shapeArray.map((shapeData, i) => {
-                        return (
-                            <Rectangle
-                                key={i}
-                                selectedNodeId={selectedId}
-                                setSelectedId={setSelectedId}
-                                providedAttrs={shapeData}
-                                updateCanvasData={updateCanvasData}
-                                setShapeArray={setShapeArray}
-                            />
-                        )
-                    })
-                    }
+                <Layer ref={layerRef} >
+                    {content}
                 </Layer>
                 <GridLayer/>
             </Stage>

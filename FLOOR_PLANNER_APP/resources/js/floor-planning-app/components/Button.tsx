@@ -8,7 +8,7 @@ type Props = PropsWithChildren<{
 
 export const Button = ({onClickHandler, type, children}: Props) => {
     return <button onClick={onClickHandler}
-                   className={`${styles.button} ${!type? styles.passive :styles[type]}`}>
+                   className={`${styles.button} ${!type ? styles.passive : styles[type]}`}>
         {children}
     </button>
 }
