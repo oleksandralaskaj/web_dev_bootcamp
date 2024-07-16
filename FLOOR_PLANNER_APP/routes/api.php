@@ -18,3 +18,6 @@ Route::get('/projects', [ProjectController::class, 'getProjectsOfUser'])->name('
 
 //get the project
 Route::get('/projects/{project_id}', [ProjectController::class, 'show'])->name('api.project');
+
+//update project
+Route::post('/projects/store/{project_id}', [ProjectController::class, 'store'])->name('api.update-project');

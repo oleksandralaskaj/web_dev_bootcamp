@@ -35,4 +35,25 @@ class ProjectController extends Controller
 
         return $project;
     }
+
+    public function store(Request $request, $project_id = null)
+    {
+        $project_id ? $project = Project::findOrFail($project_id) : $project = new Project();
+
+        $request->validate([
+            'title' => 'required|max:255',
+            'user_id' => 'required|max:255',
+        ]);
+
+        $project->title = $request->post('title');
+        $project->user_id = $request->post('user_id');
+        $project->data = $request?->post('data');
+
+        $project->save();
+
+        return [
+            'status' => "success",
+            'message' => 'project has been updated'
+        ];
+    }
 }

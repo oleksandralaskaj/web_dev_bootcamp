@@ -5,6 +5,10 @@ import {Rectangle} from "../components/Rectangle";
 import {GridLayer} from "../components/GridLayer";
 import {DownloadImage} from "../components/DownloadImage";
 import Konva from "konva";
+import {json, useParams} from "react-router-dom";
+import axios from "axios";
+import {MakeId} from '../functions/MakeId'
+import {SavePlan} from "../components/SavePlan";
 
 export const GRIDCELLSIZE = 10;
 
@@ -28,62 +32,51 @@ const initialCoordinates = {
     y: 50
 }
 export const Planner = () => {
-    const [selectedId, setSelectedId] = useState<string | null>(null);
+    //project data
+    const [projectData, setProjectData] = useState(null)
 
-    //data for illustration of selected node
-    const [selectedNodeAttrs, setSelectedNodeAttr] = useState<Attrs | null>()
+    // initial state of layer, based on fetched data or default set
+    let initialShapeArray: Attrs[] = []
 
-    const updateSelectedNodeAttrs = () => {
-        const shape = shapeArray.find(item => item.id === selectedId)
-        setSelectedNodeAttr(shape);
+    const getProjectData = async (): Promise<void> => {
+        try {
+            const res = await axios.get(`/api/projects/${project_id}`)
+            setProjectData(res.data)
+            setShapeArray(JSON.parse(res.data.data))
+        } catch (error) {
+            console.log('error fetching project data', error)
+        }
     }
 
-    useEffect(() => {
-        updateSelectedNodeAttrs()
-    }, [selectedId]);
-
-    const makeid = () => {
-        let result = '';
-        if (self.crypto.randomUUID) {
-            result = self.crypto.randomUUID()
-        } else {
-            //dev mode purposes
-            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            for (let i = 0; i < 6; i++) {
-                result += characters.charAt(Math.floor(Math.random() * characters.length));
-            }
-        }
-        return result;
+    //in case project already exists
+    const {project_id} = useParams();
+    if (project_id) {
+        useEffect(() => {
+            getProjectData()
+        }, []);
+    } else {
+        //in case project in new
+        initialShapeArray = [
+            {
+                id: MakeId(),
+                width: 100,
+                height: 100,
+                x: initialCoordinates.x,
+                y: initialCoordinates.y,
+                fill: 'red',
+                rotation: 0,
+            },
+            {
+                id: MakeId(),
+                width: 100,
+                height: 100,
+                x: initialCoordinates.x + 200,
+                y: initialCoordinates.y + 200,
+                fill: 'green',
+                rotation: 0,
+            },
+        ];
     }
-    // deselect when clicked on empty area
-    const checkDeselect = (e) => {
-        const clickedOnEmpty = e.target === e.target.getStage();
-        if (clickedOnEmpty) {
-            setSelectedId(null);
-            setSelectedNodeAttr(null)
-            console.log('clicked outside of shape')
-        }
-    };
-    const initialShapeArray: Attrs[] = [
-        {
-            id: makeid(),
-            width: 100,
-            height: 100,
-            x: initialCoordinates.x,
-            y: initialCoordinates.y,
-            fill: 'blue',
-            rotation: 0,
-        },
-        {
-            id: makeid(),
-            width: 1000,
-            height: 100,
-            x: initialCoordinates.x,
-            y: initialCoordinates.y,
-            fill: 'grey',
-            rotation: 0,
-        },
-    ];
 
     //state containing data all elements of canvas
     const [shapeArray, setShapeArray] = useState(initialShapeArray);
@@ -95,7 +88,38 @@ export const Planner = () => {
         setShapeArray(newShapeArray)
     }
 
-    const content = shapeArray.map((shapeData, i) => {
+    //id of selected shape
+    const [selectedId, setSelectedId] = useState<string | null>(null);
+
+    //data for illustration of selected node
+    const [selectedNodeAttrs, setSelectedNodeAttr] = useState<Attrs | null>()
+
+    const updateSelectedNodeAttrs = () => {
+        const shape = shapeArray?.find(item => item.id === selectedId)
+        setSelectedNodeAttr(shape);
+    }
+
+    useEffect(() => {
+        updateSelectedNodeAttrs()
+    }, [selectedId, shapeArray]);
+
+
+    // deselect when clicked on empty area
+    const checkDeselect = (e) => {
+        const clickedOnEmpty = e.target === e.target.getStage();
+        if (clickedOnEmpty) {
+            setSelectedId(null);
+            setSelectedNodeAttr(null)
+            console.log('clicked outside of shape')
+        }
+    };
+
+    //downloading plan as picture
+    const layerRef: React.RefObject<Konva.Layer> = useRef(null);
+    const linkToDownloadImage = layerRef.current?.toDataURL()
+
+    //everything, that goes to canvas
+    const content = shapeArray?.map((shapeData, i) => {
         return (
             <Rectangle
                 key={i}
@@ -107,9 +131,6 @@ export const Planner = () => {
             />
         )
     })
-
-    const layerRef: React.RefObject<Konva.Layer> = useRef(null);
-    const linkToDownloadImage = layerRef.current?.toDataURL()
 
     return (
         <div className={styles.container} id={'workspace'}>
@@ -123,9 +144,12 @@ export const Planner = () => {
                     ''
                 }
                 {linkToDownloadImage && <DownloadImage href={linkToDownloadImage}/>}
+                <SavePlan project_id={project_id} data={
+                    {...projectData, data: shapeArray}
+                }/>
             </div>
             <Stage height={canvasSize.height} width={canvasSize.width} onMouseDown={checkDeselect}>
-                <Layer ref={layerRef} >
+                <Layer ref={layerRef}>
                     {content}
                 </Layer>
                 <GridLayer/>

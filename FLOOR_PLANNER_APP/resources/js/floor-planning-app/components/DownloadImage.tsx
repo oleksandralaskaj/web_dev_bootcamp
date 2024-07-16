@@ -7,5 +7,5 @@ export const DownloadImage = ({href}: {href: string}) => {
         a.href = href;
         a.download = "image.png";
         a.click()
-    }} type='passive'>Download floor plan</Button>
+    }} type='passive'>.png</Button>
 }

@@ -39,7 +39,7 @@ export const UserContextProvider: FC<{ children: ReactNode }> = ({children}) => 
     console.log('user in context now is', user)
     const getUser = async (): Promise<void> => {
         try {
-            const res = await axios.get('api/user')
+            const res = await axios.get('/api/user')
             setUser(res.data)
         } catch (error) {
             setUser(null)

@@ -24,6 +24,7 @@ export const Navigation = () => {
                 </div> :
                 <div className={styles.login}>
                     <p>Hello, {user.first_name}</p>
+                    <Link to={'/projects'}>My projects</Link>
                     <LogoutBtn/>
                 </div>
             }

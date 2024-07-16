@@ -6,17 +6,6 @@ import axios from "axios";
 
 
 export const Home = () => {
-    const getProjects = async (): Promise<void> => {
-        try {
-            const res = await axios.get('api/projects/2')
-            console.log(res.data)
-        } catch (error) {
-            console.log('error fetching projects', error)
-        }
-    }
-    useEffect(() => {
-       getProjects()
-    }, []);
     return <div className={styles.container}>
         <div className={styles.content}>
             <div className={styles.textBlock}>
