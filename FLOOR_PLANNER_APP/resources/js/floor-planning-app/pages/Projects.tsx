@@ -1,11 +1,9 @@
 import axios from "axios";
 import React, {ReactNode, useEffect, useState} from "react";
-import styles from "../components/Form.module.scss";
 import {ProjectItem} from "./ProjectItem";
 import {useUserContext} from "../contexts/UserContext";
-import {useNavigate} from "react-router-dom";
-import {Link} from "../components/Link";
 import {Form} from "../components/Form";
+import styles from '../pages/Projects.module.scss'
 
 type ProjectData = {
     id: number,
@@ -39,6 +37,10 @@ export const Projects = () => {
                 title: title,
                 user_id: user.id,
             });
+            //load projects again with new one
+            await getProjects()
+            //reset input field
+            setTitle('')
             console.log('new project is created', response.data)
         } catch (error: unknown) {
             if (error instanceof Error) {
@@ -57,13 +59,18 @@ export const Projects = () => {
         </div>
     )
 
-    return <>
-        {projects ? content : <p>You have no projects create yet, so let's with creating one</p>}
+    return <div className={styles.container}>
+        <h1 className={styles.title}>My projects</h1>
+        <div className={styles.existing}>
+            {projects?.length !== 0? content: <p className={styles.info}>You have no projects yet, so start with creating one</p>}
+        </div>
+
+        <h2 className={styles.subtitle}>Add new project:</h2>
         <Form inputs={{title: title}}
               action={`api/projects/store`}
               handleChange={handleChange}
               handleSubmit={handleSubmit}
               buttonText={'Create new project'}/>
 
-    </>
+    </div>
 }

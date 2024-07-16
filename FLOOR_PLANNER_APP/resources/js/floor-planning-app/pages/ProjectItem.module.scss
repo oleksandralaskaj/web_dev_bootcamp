@@ -1,8 +1,10 @@
 @import "/resources/css/app.scss";
 
 .container {
-    display: flex;
     align-items: flex-start;
+    border-radius: 1rem;
+    display: flex;
+    background-color: $color-secondary-text;
     flex-direction: column;
     gap: 1rem;
     padding: 2rem;
