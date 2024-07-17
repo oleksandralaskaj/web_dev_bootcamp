@@ -1,13 +1,13 @@
 import axios from 'axios';
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEventHandler, FormEventHandler, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useUserContext} from "../contexts/UserContext";
-import {Form} from "../components/Form";
-import styles from "./Login.module.scss";
+import styles from "./RegisterLogin.module.scss";
 import {Link} from "../components/Link";
+import {Button} from "../components/Button";
 
-export function Register(props) {
-    const {user, getUser} = useUserContext();
+export function Register() {
+    const {user, fetchUser} = useUserContext();
     const navigate = useNavigate();
 
     const [values, setValues] = useState({
@@ -19,7 +19,7 @@ export function Register(props) {
         password_confirmation: ''
     })
 
-    const handleChange = (event) => {
+    const handleChange:ChangeEventHandler<HTMLInputElement> = (event) => {
         setValues(previous_values => {
             return ({
                 ...previous_values,
@@ -28,13 +28,11 @@ export function Register(props) {
         });
     }
 
-    const handleSubmit = async (event) => {
-
+    const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post('/register', values);
-            const response_data = response.data;
-            getUser();
+            await axios.post('/register', values);
+            fetchUser();
             navigate('/');
         } catch (error: unknown) {
             if (error instanceof Error) {
@@ -60,11 +58,38 @@ export function Register(props) {
             <h2 className={styles.subtitle}>You've got your account already? Then, <Link to={'/login'}> sign in →</Link>
             </h2>
         </div>
-        <Form inputs={values}
-              action={'/register'}
-              handleChange={handleChange}
-              handleSubmit={handleSubmit}
-              buttonText={'Register a new account'}/>
-
+        <form action="/register" method="post" onSubmit={handleSubmit}>
+            <div className={styles.fieldBlock}>
+                <div className={styles.item}>
+                    <label htmlFor="username">User name</label>
+                    <input type="text" id='username' name="username" value={values.username} onChange={handleChange}/>
+                </div>
+                <div className={styles.item}>
+                    <label htmlFor="first_name">First name</label>
+                    <input type="text" id='first_name' name="first_name" value={values.first_name}
+                           onChange={handleChange}/>
+                </div>
+                <div className={styles.item}>
+                    <label htmlFor="surname">Surname</label>
+                    <input type="text" id='surname' name="surname" value={values.surname} onChange={handleChange}/>
+                </div>
+                <div className={styles.item}>
+                    <label htmlFor="email">Email</label>
+                    <input type="email" id='email' name="email" value={values.email} onChange={handleChange}/>
+                </div>
+                <div className={styles.item}>
+                    <label htmlFor="password">Password</label>
+                    <input type="password" id='password' name="password" value={values.password}
+                           onChange={handleChange}/>
+                </div>
+                <div className={styles.item}>
+                    <label htmlFor="password_confirmation">Password confirmation</label>
+                    <input type="password" id='password_confirmation' name="password_confirmation"
+                           value={values.password_confirmation}
+                           onChange={handleChange}/>
+                </div>
+            </div>
+            <Button type={'active'}>Register</Button>
+        </form>
     </div>
 }

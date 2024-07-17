@@ -28,16 +28,16 @@ type UserContextType = {
     user: User | null,
     isLoaded: boolean,
     setUser: Dispatch<SetStateAction<User | null>>,
-    getUser: () => Promise<void>
+    fetchUser: () => Promise<void>
 }
 
-const UserContext = createContext<UserContextType | null>(null);
+const UserContext = createContext<UserContextType>({} as UserContextType);
 
 export const UserContextProvider: FC<{ children: ReactNode }> = ({children}) => {
     const [user, setUser] = useState<User | null>(null)
     const [isLoaded, setIsLoaded] = useState(false)
     console.log('user in context now is', user)
-    const getUser = async (): Promise<void> => {
+    const fetchUser = async (): Promise<void> => {
         try {
             const res = await axios.get('/api/user')
             setUser(res.data)
@@ -49,11 +49,11 @@ export const UserContextProvider: FC<{ children: ReactNode }> = ({children}) => 
     }
 
     useEffect(() => {
-        getUser()
+        fetchUser()
     }, [])
 
     return (
-        <UserContext.Provider value={{user, isLoaded, setUser, getUser}}>
+        <UserContext.Provider value={{user, isLoaded, setUser, fetchUser}}>
             {children}
         </UserContext.Provider>
     )

@@ -1,30 +1,25 @@
-import React, {useState} from 'react';
+import React, {ChangeEventHandler, FormEventHandler, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import {useUserContext} from "../contexts/UserContext";
-import {Form} from "../components/Form";
-import styles from "./Login.module.scss"
+import styles from "./RegisterLogin.module.scss"
 import {Link} from "../components/Link";
-import {MoveRight} from "lucide-react";
+import {Button} from "../components/Button";
 
-
-export function Login(props) {
-    const {user, getUser} = useUserContext();
+export function Login() {
+    const {user, fetchUser} = useUserContext();
     const navigate = useNavigate()
     const [values, setValues] = useState({
         email: '',
         password: ''
     })
 
-    const handleSubmit = async (event) => {
-
+    const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
         event.preventDefault();
 
         try {
-            const response = await axios.post('/login', values);
-            const response_data = response.data;
-            console.log('login success ', response_data)
-            getUser();
+            await axios.post('/login', values);
+            fetchUser();
             navigate('/')
         } catch (error: unknown) {
             if (error instanceof Error) {
@@ -33,7 +28,7 @@ export function Login(props) {
         }
     }
 
-    const handleChange = (event) => {
+    const handleChange:ChangeEventHandler<HTMLInputElement> = (event) => {
         setValues(previous_values => {
             return ({
                 ...previous_values,
@@ -55,10 +50,19 @@ export function Login(props) {
             <h2 className={styles.subtitle}>If you don't have an account jet, <Link to={'/register'}> register →</Link>
             </h2>
         </div>
-        <Form inputs={values}
-              action={'/login'}
-              handleChange={handleChange}
-              handleSubmit={handleSubmit}
-              buttonText={'Login'}/>
+        <form action="/login" method="post" onSubmit={handleSubmit}>
+            <div className={styles.fieldBlock}>
+                <div className={styles.item}>
+                    <label htmlFor="email">Email</label>
+                    <input type="email" id='email' name="email" value={values.email} onChange={handleChange}/>
+                </div>
+                <div className={styles.item}>
+                    <label htmlFor="password">Password</label>
+                    <input type="password" id='password' name="password" value={values.password}
+                           onChange={handleChange}/>
+                </div>
+            </div>
+            <Button type={'active'}>Login</Button>
+        </form>
     </div>
 }

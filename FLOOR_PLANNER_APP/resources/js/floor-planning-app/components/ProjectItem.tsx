@@ -1,6 +1,6 @@
 import styles from './ProjectItem.module.scss'
 import React from "react";
-import {Button} from "../components/Button";
+import {Button} from "./Button";
 import {useNavigate} from "react-router-dom";
 import {DateBeautifier} from "../functions/DateBeautifier";
 

@@ -9,7 +9,7 @@ export const SavePlan = ({project_id, data}) => {
         try {
             const response = await axios.post(`/api/projects/store/${project_id}`, {
                 data: JSON.stringify(data.data),
-                user_id: user.id,
+                user_id: user?.id,
                 title: data.title
             });
             console.log('api response after save', response.data);

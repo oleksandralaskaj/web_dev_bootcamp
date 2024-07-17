@@ -39,5 +39,11 @@
             }
             gap: 1rem;
         }
+
+        .links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
     }
 }

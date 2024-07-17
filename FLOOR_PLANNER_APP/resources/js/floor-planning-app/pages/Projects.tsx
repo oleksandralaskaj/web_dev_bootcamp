@@ -1,8 +1,7 @@
 import axios from "axios";
-import React, {ReactNode, useEffect, useState} from "react";
-import {ProjectItem} from "./ProjectItem";
+import React, {useEffect, useState} from "react";
+import {ProjectItem} from "../components/ProjectItem";
 import {useUserContext} from "../contexts/UserContext";
-import {Form} from "../components/Form";
 import styles from '../pages/Projects.module.scss'
 
 type ProjectData = {
@@ -35,7 +34,7 @@ export const Projects = () => {
         try {
             const response = await axios.post(`api/projects/store`, {
                 title: title,
-                user_id: user.id,
+                user_id: user?.id,
             });
             //load projects again with new one
             await getProjects()
@@ -66,11 +65,5 @@ export const Projects = () => {
         </div>
 
         <h2 className={styles.subtitle}>Add new project:</h2>
-        <Form inputs={{title: title}}
-              action={`api/projects/store`}
-              handleChange={handleChange}
-              handleSubmit={handleSubmit}
-              buttonText={'Create new project'}/>
-
     </div>
 }

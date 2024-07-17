@@ -12,21 +12,26 @@ export const Navigation = () => {
     return <div className={styles.container}>
         <div className={styles.content}>
             <Link to={'/'}>
-            <div className={styles.logo}>
-                <PencilRuler/>
-                <p>FloorPlanner</p>
-            </div>
+                <div className={styles.logo}>
+                    <PencilRuler/>
+                    <p>FloorPlanner</p>
+                </div>
             </Link>
             {!user ?
                 <div className={styles.login}>
                     <Link to={'/register'}>Register</Link>
                     <Link to={'/login'}><Button type={'active'}>Sign in</Button></Link>
                 </div> :
-                <div className={styles.login}>
-                    <p>Hello, {user.first_name}</p>
-                    <Link to={'/projects'}>My projects</Link>
-                    <LogoutBtn/>
-                </div>
+                <>
+                    <div className={styles.links}>
+                        <Link to={'/planner'}>Start drawing</Link>
+                        <Link to={'/projects'}>My projects</Link>
+                    </div>
+                    <div className={styles.login}>
+                        <p>Hello, {user.first_name}</p>
+                        <LogoutBtn/>
+                    </div>
+                </>
             }
         </div>
     </div>

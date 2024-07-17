@@ -1,14 +1,15 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {RefObject, useEffect, useRef, useState} from "react";
 import {Stage, Layer} from 'react-konva';
 import styles from './Planner.module.scss'
 import {Rectangle} from "../components/Rectangle";
 import {GridLayer} from "../components/GridLayer";
 import {DownloadImage} from "../components/DownloadImage";
 import Konva from "konva";
-import {json, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import axios from "axios";
 import {MakeId} from '../functions/MakeId'
 import {SavePlan} from "../components/SavePlan";
+import {KonvaEventObject} from "konva/lib/Node";
 
 export const GRIDCELLSIZE = 10;
 
@@ -22,8 +23,17 @@ export type Attrs = {
     rotation: number,
 }
 
+type  ProjectData = {
+    id: number,
+    user_id: number,
+    title: string,
+    data: string | null,
+    created_at: string,
+    updated_at: string
+}
+
 const canvasSize = {
-    height: window.innerHeight,
+    height: window.innerHeight - 62,
     width: window.innerWidth - 132,
 }
 
@@ -33,10 +43,16 @@ const initialCoordinates = {
 }
 export const Planner = () => {
     //project data
-    const [projectData, setProjectData] = useState(null)
+    const [projectData, setProjectData] = useState<ProjectData | null>(null)
 
-    // initial state of layer, based on fetched data or default set
-    let initialShapeArray: Attrs[] = []
+    //state containing data all elements of canvas
+    const [shapeArray, setShapeArray] = useState<Attrs[]>([]);
+
+    //id of selected shape
+    const [selectedId, setSelectedId] = useState<string | null>(null);
+
+    //data for illustration of selected node
+    const [selectedNodeAttrs, setSelectedNodeAttr] = useState<Attrs | null>()
 
     const getProjectData = async (): Promise<void> => {
         try {
@@ -50,36 +66,35 @@ export const Planner = () => {
 
     //in case project already exists
     const {project_id} = useParams();
-    if (project_id) {
-        useEffect(() => {
-            getProjectData()
-        }, []);
-    } else {
-        //in case project in new
-        initialShapeArray = [
-            {
-                id: MakeId(),
-                width: 100,
-                height: 100,
-                x: initialCoordinates.x,
-                y: initialCoordinates.y,
-                fill: 'red',
-                rotation: 0,
-            },
-            {
-                id: MakeId(),
-                width: 100,
-                height: 100,
-                x: initialCoordinates.x + 200,
-                y: initialCoordinates.y + 200,
-                fill: 'green',
-                rotation: 0,
-            },
-        ];
-    }
 
-    //state containing data all elements of canvas
-    const [shapeArray, setShapeArray] = useState(initialShapeArray);
+    useEffect(() => {
+        if (project_id) {
+            getProjectData()
+        } else {
+            //in case project in new
+            setShapeArray([
+                {
+                    id: MakeId(),
+                    width: 100,
+                    height: 100,
+                    x: initialCoordinates.x,
+                    y: initialCoordinates.y,
+                    fill: 'red',
+                    rotation: 0,
+                },
+                {
+                    id: MakeId(),
+                    width: 100,
+                    height: 100,
+                    x: initialCoordinates.x + 200,
+                    y: initialCoordinates.y + 200,
+                    fill: 'green',
+                    rotation: 0,
+                },
+            ]);
+        }
+    }, []);
+
 
     const updateCanvasData = (newData: Attrs) => {
         const newShapeArray = shapeArray.slice();
@@ -87,12 +102,6 @@ export const Planner = () => {
         newShapeArray[indexOfShapeToBeUpdated] = newData
         setShapeArray(newShapeArray)
     }
-
-    //id of selected shape
-    const [selectedId, setSelectedId] = useState<string | null>(null);
-
-    //data for illustration of selected node
-    const [selectedNodeAttrs, setSelectedNodeAttr] = useState<Attrs | null>()
 
     const updateSelectedNodeAttrs = () => {
         const shape = shapeArray?.find(item => item.id === selectedId)
@@ -104,9 +113,9 @@ export const Planner = () => {
     }, [selectedId, shapeArray]);
 
 
-    // deselect when clicked on empty area
-    const checkDeselect = (e) => {
-        const clickedOnEmpty = e.target === e.target.getStage();
+// deselect when clicked on empty area
+    const checkDeselect = (event: KonvaEventObject<MouseEvent>) => {
+        const clickedOnEmpty = event.target === event.target.getStage();
         if (clickedOnEmpty) {
             setSelectedId(null);
             setSelectedNodeAttr(null)
@@ -114,11 +123,11 @@ export const Planner = () => {
         }
     };
 
-    //downloading plan as picture
-    const layerRef: React.RefObject<Konva.Layer> = useRef(null);
+//downloading plan as picture
+    const layerRef: RefObject<Konva.Layer> = useRef(null);
     const linkToDownloadImage = layerRef.current?.toDataURL()
 
-    //everything, that goes to canvas
+//everything, that goes to canvas
     const content = shapeArray?.map((shapeData, i) => {
         return (
             <Rectangle
@@ -134,19 +143,21 @@ export const Planner = () => {
 
     return (
         <div className={styles.container} id={'workspace'}>
-            <div className={styles.info}>
+            <div className={styles.leftbar}>
+                <div className={styles.info}>
                 {selectedNodeAttrs ? <>
-                        <p>id: {selectedNodeAttrs.id}</p>
                         <p>X: {selectedNodeAttrs.x}</p>
                         <p>Y: {selectedNodeAttrs.y}</p>
                         <p>H: {selectedNodeAttrs.height}</p>
                         <p>W: {selectedNodeAttrs.width}</p></> :
                     ''
                 }
-                {linkToDownloadImage && <DownloadImage href={linkToDownloadImage}/>}
-                <SavePlan project_id={project_id} data={
-                    {...projectData, data: shapeArray}
-                }/>
+                </div>
+                <div className={styles.save}>
+                    {linkToDownloadImage && <DownloadImage href={linkToDownloadImage}/>}
+                    <SavePlan project_id={project_id} data={
+                        {...projectData, data: shapeArray}}/>
+                </div>
             </div>
             <Stage height={canvasSize.height} width={canvasSize.width} onMouseDown={checkDeselect}>
                 <Layer ref={layerRef}>
